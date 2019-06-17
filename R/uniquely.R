@@ -15,6 +15,7 @@
 #' @importFrom reshape2 melt
 #' @importFrom dplyr mutate arrange desc
 uniquely = function(L, Names = F, highest = T) {
+
     stopifnot(!is.null(names(L)))
 
     dat = cbind.data.frame(reshape2::melt(L), reshape2::melt(sapply(L, names, simplify = F)))
