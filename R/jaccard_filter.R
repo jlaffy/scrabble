@@ -15,7 +15,7 @@
 #' @export 
 jaccard_filter = function(L, cutoff = 0.8, return.index = FALSE) {
     
-    stopifnot(cutoff >= 0 and <= 1)
+    stopifnot(cutoff >= 0 & cutoff <= 1)
 
     Is = 1:(length(L) - 1)
     Js = sapply(2:length(L), function(i) i:length(L))
