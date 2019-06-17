@@ -85,7 +85,7 @@ clusters(m = NULL, hc = NULL, clusters = NULL,
 with default parameters, will compute hierarchical clustering object of the pariwise correlations of the matrix provided and retrieve all clusters at all possible heights. If the user prefers a specified number of clusters or a specified height, these can instead be provided.
 }
 \description{
-This function computes the clusters from the expression matrix specified by hierarchical clustering. It can also\n\t(1) filter the resulting clusters by size (if they pass min and max size cutoffs), (2) compute the sets of differentially expressed genes in each cluster, (3) filter the resulting clusters by gene significance (if they pass nsig1 and nsig2 cutoffs), (4) filter the resulting clusters by cluster similarity (if they pass the Jaccard similarity cutoff) such that for any pair of clusters with too-high similarity, the least-significant cluster is removed and (4) sort the resulting clusters by significance.
+This function computes the clusters from the expression matrix specified by hierarchical clustering. It can also (1) filter the resulting clusters by size (if they pass min and max size cutoffs), (2) compute the sets of differentially expressed genes in each cluster, (3) filter the resulting clusters by gene significance (if they pass nsig1 and nsig2 cutoffs), (4) filter the resulting clusters by cluster similarity (if they pass the Jaccard similarity cutoff) such that for any pair of clusters with too-high similarity, the least-significant cluster is removed and (4) sort the resulting clusters by significance.
 }
 \details{
 DETAILS

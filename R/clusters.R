@@ -39,7 +39,7 @@
 
 
 #' @title Hierarchical Clustering and Differential Gene Expression
-#' @description This function computes the clusters from the expression matrix specified by hierarchical clustering. It can also\n\t(1) filter the resulting clusters by size (if they pass min and max size cutoffs), (2) compute the sets of differentially expressed genes in each cluster, (3) filter the resulting clusters by gene significance (if they pass nsig1 and nsig2 cutoffs), (4) filter the resulting clusters by cluster similarity (if they pass the Jaccard similarity cutoff) such that for any pair of clusters with too-high similarity, the least-significant cluster is removed and (4) sort the resulting clusters by significance.
+#' @description This function computes the clusters from the expression matrix specified by hierarchical clustering. It can also (1) filter the resulting clusters by size (if they pass min and max size cutoffs), (2) compute the sets of differentially expressed genes in each cluster, (3) filter the resulting clusters by gene significance (if they pass nsig1 and nsig2 cutoffs), (4) filter the resulting clusters by cluster similarity (if they pass the Jaccard similarity cutoff) such that for any pair of clusters with too-high similarity, the least-significant cluster is removed and (4) sort the resulting clusters by significance.
 #' @param m matrix. Default: NULL
 #' @param hc hierarchical clustering (hclust) object. If provided, will be used instead of computed. Default: NULL
 #' @param hc.method a character string indicating which agglomeration method to use. Default: 'average'
