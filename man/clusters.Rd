@@ -2,12 +2,19 @@
 % Please edit documentation in R/clusters.R
 \name{clusters}
 \alias{clusters}
-\title{clusters}
+\title{Hierarchical Clustering and Differential Gene Expression}
 \usage{
-clusters(m = NULL, hc = NULL, cor.method = "pearson",
-  hc.method = "average", compute.dist = T, dist.method = "euclidean",
-  k = NULL, h = NULL, clean = TRUE, min.rel = 0.05,
-  max.rel = 0.8, min.abs = 5)
+clusters(m = NULL, hc = NULL, clusters = NULL,
+  cor.method = "pearson", hc.method = "average", compute.dist = T,
+  dist.method = "euclidean", k = NULL, h = NULL, size.filter = F,
+  min.size = T, max.size = T, min.rel = 0.05, max.rel = 0.8,
+  min.abs = 5, DEA = F, FC = 2, is.log = T, p = 0.01,
+  adjust.method = "BH", sort = T, p.sort = F, return.full = F,
+  return.p = F, fast = T, significance.filter = F, nsig1 = 30,
+  nsig2 = 5, similarity.filter = F, all.filters = F,
+  similarity.cutoff = 0.8, order.method = "combined",
+  ties.method = "random", first = "sig1", decreasing = TRUE,
+  sortBySignificance = T, verbose = F)
 }
 \arguments{
 \item{m}{matrix. Default: NULL}
@@ -26,19 +33,59 @@ clusters(m = NULL, hc = NULL, cor.method = "pearson",
 
 \item{h}{tree height at which to retrieve clusters. Default: NULL}
 
-\item{clean}{if TRUE, will return clusters that are within the sizes specified. Default: TRUE}
+\item{size.filter}{if TRUE, will return clusters that are within the sizes specified. Default: TRUE}
+
+\item{min.size}{a boolean value or numeric value indicating whether there should be a minimum number of clusters or what the minimum number of clusters should be, respectively. If the former, then the minimum number of clusters will be calculated relative to the total number of clusters with min.rel.}
+
+\item{max.size}{a boolean value or numeric value indicating whether there should be a maximum number of clusters or what the maximum number of clusters should be, respectively. If the former, then the maximum number of clusters will be calculated relative to the total number of clusters with max.rel.}
 
 \item{min.rel}{minimum relative size of a cluster. Default: 0.01 (ie. 0.01 of total number of variables)}
 
 \item{max.rel}{maximum relative size of a cluster. Default: 0.8 (ie. 0.8 of total number of variables)}
 
 \item{min.abs}{absolute minimum size. If min.rel < min.abs, min.abs will replace min.rel. Default: 5}
+
+\item{DEA}{a boolean value indicating whether to run Differential Gene Expression Analysis. Required if significance.filter, simCut or sortBySignificance are TRUE. Default: T}
+
+\item{FC}{fold change cutoff. Passed to \code{\link[scrabble]{genes}}. Default: 2}
+
+\item{is.log}{values are in log2 (used in fold_changes). Passed to \code{\link[scrabble]{genes}}. Default: T}
+
+\item{p}{p-value cutoff. Passed to \code{\link[scrabble]{genes}}. Default: 0.01}
+
+\item{adjust.method}{Correction for multiple tests. If not desired, set to 'none'. Passed to \code{\link[scrabble]{genes}}. Default: 'BH'}
+
+\item{p.sort}{returning values are sorted by p-value (most significant first). Passed to \code{\link[scrabble]{genes}}. Default: F}
+
+\item{return.full}{return cluster membership and cluster DE genes. Passed to \code{\link[scrabble]{genes}}. Default: F}
+
+\item{return.p}{return cluster DE p-values. Passed to \code{\link[scrabble]{genes}}. Default: F}
+
+\item{fast}{if TRUE, computes p-values for significant fold-change values only. Passed to \code{\link[scrabble]{genes}}. Default: T}
+
+\item{significance.filter}{a boolean value indicating whether to remove clusters that do not pass gene significance cutoffs. Default: T}
+
+\item{nsig1}{cutoff for number of differentially expressed genes. Used to cut by significance (significance.filter = TRUE). If not desired, set to FALSE. Default: 30}
+
+\item{nsig2}{cutoff for number of most differentially expressed genes. Used to cut by significance (significance.filter = TRUE). If not desired, set to FALSE. Default: 5}
+
+\item{similarity.filter}{a boolean value indicating whether to remove clusters that are too similar. Default: T}
+
+\item{similarity.cutoff}{numeric value between 0 and 1 defining the maximum Jaccard similarity allowed. Default: 0.8}
+
+\item{order.method}{character string indicating which ordering method should be used, one of 'combined', 'sequential', 'sig1' or 'sig2'. 'combined' orders by the mean of sig1 ranks and sig2 ranks. 'sequential' orders by sig1 and sig2 sequentially, ordering by the second only where there are ties in the first. 'sig1' orders by the number of elements in each vector. 'sig2' orders by the number of elements in each vector after filtering the list such that each element only appears once in the vector in which it's value is highest. Default: 'combined'}
+
+\item{ties.method}{character string specifying how ties are treated, see base::rank for more details.}
+
+\item{first}{character string indicating whether ordering should be first by sig1 and then by sig2 (default) or vice versa. One of 'sig1' or 'sig2'. Only relevant if order.method is 'sequential'. Default: 'sig1'}
+
+\item{decreasing}{boolean value indicating whether the list should be reordered by decreasing or increasing significance. If TRUE, the most significant vector will appear first. Default: TRUE}
 }
 \value{
 with default parameters, will compute hierarchical clustering object of the pariwise correlations of the matrix provided and retrieve all clusters at all possible heights. If the user prefers a specified number of clusters or a specified height, these can instead be provided.
 }
 \description{
-Compute and Retrieve Clusters from Hierarchical Clustering at all Heights
+This function computes the clusters from the expression matrix specified by hierarchical clustering. It can also\n\t(1) filter the resulting clusters by size (if they pass min and max size cutoffs), (2) compute the sets of differentially expressed genes in each cluster, (3) filter the resulting clusters by gene significance (if they pass nsig1 and nsig2 cutoffs), (4) filter the resulting clusters by cluster similarity (if they pass the Jaccard similarity cutoff) such that for any pair of clusters with too-high similarity, the least-significant cluster is removed and (4) sort the resulting clusters by significance.
 }
 \details{
 DETAILS
