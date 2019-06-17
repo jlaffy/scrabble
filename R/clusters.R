@@ -49,10 +49,10 @@
 #' @param k number of clusters to return. Default: NULL
 #' @param h tree height at which to retrieve clusters. Default: NULL
 #' @param size.filter if TRUE, will return clusters that are within the sizes specified. Default: TRUE
-#' @param min.size a boolean value or numeric value indicating whether there should be a minimum number of clusters or what the minimum number of clusters should be, respectively. If the former, then the minimum number of clusters will be calculated relative to the total number of clusters with min.rel.
-#' @param max.size a boolean value or numeric value indicating whether there should be a maximum number of clusters or what the maximum number of clusters should be, respectively. If the former, then the maximum number of clusters will be calculated relative to the total number of clusters with max.rel.
-#' @param min.rel minimum relative size of a cluster. Default: 0.01 (ie. 0.01 of total number of variables)
-#' @param max.rel maximum relative size of a cluster. Default: 0.8 (ie. 0.8 of total number of variables)
+#' @param min.size a boolean value or numeric value indicating whether there should be a minimum number of clusters or what the minimum number of clusters should be, respectively. If the former, then the minimum number of clusters will be calculated relative to the total number of members with min.rel.
+#' @param max.size a boolean value or numeric value indicating whether there should be a maximum number of clusters or what the maximum number of clusters should be, respectively. If the former, then the maximum number of clusters will be calculated relative to the total number of members with max.rel.
+#' @param min.rel minimum relative size of a cluster. Default: 0.01 (ie. 0.01 of total number of members)
+#' @param max.rel maximum relative size of a cluster. Default: 0.8 (ie. 0.8 of total number of members)
 #' @param min.abs absolute minimum size. If min.rel < min.abs, min.abs will replace min.rel. Default: 5
 #' @param DEA a boolean value indicating whether to run Differential Gene Expression Analysis. Required if significance.filter, simCut or sortBySignificance are TRUE. Default: T
 #' @param FC fold change cutoff. Passed to \code{\link[scrabble]{genes}}. Default: 2

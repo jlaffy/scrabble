@@ -35,13 +35,13 @@ clusters(m = NULL, hc = NULL, clusters = NULL,
 
 \item{size.filter}{if TRUE, will return clusters that are within the sizes specified. Default: TRUE}
 
-\item{min.size}{a boolean value or numeric value indicating whether there should be a minimum number of clusters or what the minimum number of clusters should be, respectively. If the former, then the minimum number of clusters will be calculated relative to the total number of clusters with min.rel.}
+\item{min.size}{a boolean value or numeric value indicating whether there should be a minimum number of clusters or what the minimum number of clusters should be, respectively. If the former, then the minimum number of clusters will be calculated relative to the total number of members with min.rel.}
 
-\item{max.size}{a boolean value or numeric value indicating whether there should be a maximum number of clusters or what the maximum number of clusters should be, respectively. If the former, then the maximum number of clusters will be calculated relative to the total number of clusters with max.rel.}
+\item{max.size}{a boolean value or numeric value indicating whether there should be a maximum number of clusters or what the maximum number of clusters should be, respectively. If the former, then the maximum number of clusters will be calculated relative to the total number of members with max.rel.}
 
-\item{min.rel}{minimum relative size of a cluster. Default: 0.01 (ie. 0.01 of total number of variables)}
+\item{min.rel}{minimum relative size of a cluster. Default: 0.01 (ie. 0.01 of total number of members)}
 
-\item{max.rel}{maximum relative size of a cluster. Default: 0.8 (ie. 0.8 of total number of variables)}
+\item{max.rel}{maximum relative size of a cluster. Default: 0.8 (ie. 0.8 of total number of members)}
 
 \item{min.abs}{absolute minimum size. If min.rel < min.abs, min.abs will replace min.rel. Default: 5}
 
