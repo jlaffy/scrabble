@@ -2,12 +2,17 @@
 % Please edit documentation in R/clean_by_size.R
 \name{clean_by_size}
 \alias{clean_by_size}
-\title{clean_by_size}
+\title{Remove Clusters that Contain Too Few or Too Many Members}
 \usage{
-clean_by_size(clusters, min.rel = 0.01, max.rel = 0.8, min.abs = 5)
+clean_by_size(clusters, min.size = T, max.size = T, min.rel = 0.01,
+  max.rel = 0.8, min.abs = 5)
 }
 \arguments{
 \item{clusters}{List of cluster memberships (character vectors)}
+
+\item{min.size}{a boolean value or numeric value indicating whether there should be a minimum number of clusters or what the minimum number of clusters should be, respectively. If the former, then the minimum number of clusters will be calculated relative to the total number of clusters with min.rel.}
+
+\item{max.size}{a boolean value or numeric value indicating whether there should be a maximum number of clusters or what the maximum number of clusters should be, respectively. If the former, then the maximum number of clusters will be calculated relative to the total number of clusters with max.rel.}
 
 \item{min.rel}{minimum relative size of a cluster. Default: 0.01 (ie. 0.01 of total number of variables)}
 
@@ -19,8 +24,5 @@ clean_by_size(clusters, min.rel = 0.01, max.rel = 0.8, min.abs = 5)
 a list of filtered clusters according to their being within min.rel and max.rel cutoffs.
 }
 \description{
-Filtering for Reasonably Sized Clusters
-}
-\details{
-DETAILS
+This function removes clusters that contain too few or too many members. The allowed sizes of clusters can be specified relative to the total number of members with min.rel and max.rel, or as absolute values with min.size and max.size. If one of the minimum or maximum size cutoffs are not desired, the min.size/max.size argument should be set to FALSE. By default, the min.size and max.size arguments are set to TRUE, which defines the cluster sizes allowed according to min.rel and max.rel and the total number of members across all clusters.
 }
