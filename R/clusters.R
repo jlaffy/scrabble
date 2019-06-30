@@ -67,6 +67,7 @@
 #' @param nsig1 cutoff for number of differentially expressed genes. Used to cut by significance (significance.filter = TRUE). If not desired, set to FALSE. Default: 30
 #' @param nsig2 cutoff for number of most differentially expressed genes. Used to cut by significance (significance.filter = TRUE). If not desired, set to FALSE. Default: 5
 #' @param similarity.filter a boolean value indicating whether to remove clusters that are too similar. Default: T
+#' @param all.filters a boolean value indicating whether to set all filtering options to TRUE: size.filter, significance.filter, similarity.filter. Default: T
 #' @param similarity.cutoff numeric value between 0 and 1 defining the maximum Jaccard similarity allowed. Default: 0.8
 #' @param order.method character string indicating which ordering method should be used, one of 'combined', 'sequential', 'sig1' or 'sig2'. 'combined' orders by the mean of sig1 ranks and sig2 ranks. 'sequential' orders by sig1 and sig2 sequentially, ordering by the second only where there are ties in the first. 'sig1' orders by the number of elements in each vector. 'sig2' orders by the number of elements in each vector after filtering the list such that each element only appears once in the vector in which it's value is highest. Default: 'combined'
 #' @param ties.method character string specifying how ties are treated, see base::rank for more details.
