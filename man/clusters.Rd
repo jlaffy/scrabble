@@ -8,10 +8,10 @@ clusters(m = NULL, hc = NULL, clusters = NULL,
   cor.method = "pearson", hc.method = "average", compute.dist = T,
   dist.method = "euclidean", k = NULL, h = NULL, size.filter = F,
   min.size = T, max.size = T, min.rel = 0.05, max.rel = 0.8,
-  min.abs = 5, DEA = F, FC = 2, is.log = T, p = 0.01,
+  min.abs = 5, DEA = T, FC = 2, is.log = T, p = 0.01,
   adjust.method = "BH", sort = T, p.sort = F, return.full = F,
   return.p = F, fast = T, significance.filter = F, nsig1 = 30,
-  nsig2 = 5, similarity.filter = F, all.filters = F,
+  nsig2 = 5, similarity.filter = F, all.filters = T,
   similarity.cutoff = 0.8, order.method = "combined",
   ties.method = "random", first = "sig1", decreasing = TRUE,
   sortBySignificance = T, verbose = F)
@@ -70,6 +70,8 @@ clusters(m = NULL, hc = NULL, clusters = NULL,
 \item{nsig2}{cutoff for number of most differentially expressed genes. Used to cut by significance (significance.filter = TRUE). If not desired, set to FALSE. Default: 5}
 
 \item{similarity.filter}{a boolean value indicating whether to remove clusters that are too similar. Default: T}
+
+\item{all.filters}{a boolean value indicating whether to set all filtering options to TRUE: size.filter, significance.filter, similarity.filter. Default: T}
 
 \item{similarity.cutoff}{numeric value between 0 and 1 defining the maximum Jaccard similarity allowed. Default: 0.8}
 
