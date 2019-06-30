@@ -54,7 +54,7 @@
 #' @param min.rel minimum relative size of a cluster. Default: 0.01 (ie. 0.01 of total number of members)
 #' @param max.rel maximum relative size of a cluster. Default: 0.8 (ie. 0.8 of total number of members)
 #' @param min.abs absolute minimum size. If min.rel < min.abs, min.abs will replace min.rel. Default: 5
-#' @param DEA a boolean value indicating whether to run Differential Gene Expression Analysis. Required if significance.filter, simCut or sortBySignificance are TRUE. Default: T
+#' @param DEA a boolean value indicating whether to run Differential Gene Expression Analysis. Required if any of significance.filter or similarity.filter are set to TRUE. Default: T
 #' @param FC fold change cutoff. Passed to \code{\link[scrabble]{genes}}. Default: 2
 #' @param is.log values are in log2 (used in fold_changes). Passed to \code{\link[scrabble]{genes}}. Default: T
 #' @param p p-value cutoff. Passed to \code{\link[scrabble]{genes}}. Default: 0.01

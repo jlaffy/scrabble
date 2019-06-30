@@ -45,7 +45,7 @@ clusters(m = NULL, hc = NULL, clusters = NULL,
 
 \item{min.abs}{absolute minimum size. If min.rel < min.abs, min.abs will replace min.rel. Default: 5}
 
-\item{DEA}{a boolean value indicating whether to run Differential Gene Expression Analysis. Required if significance.filter, simCut or sortBySignificance are TRUE. Default: T}
+\item{DEA}{a boolean value indicating whether to run Differential Gene Expression Analysis. Required if any of significance.filter or similarity.filter are set to TRUE. Default: T}
 
 \item{FC}{fold change cutoff. Passed to \code{\link[scrabble]{genes}}. Default: 2}
 
