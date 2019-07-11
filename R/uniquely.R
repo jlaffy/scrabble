@@ -5,8 +5,6 @@
 #' @param Names return just names (Genes), Default: F
 #' @param highest if TRUE, unique instance is equal to highest instance, else to lowest. Default: T
 #' @return List of named numeric vectors, with only one instance of each name across all vectors
-#' @details DETAILS
-#' @examples 
 #' @seealso 
 #'  \code{\link[reshape2]{melt}}
 #'  \code{\link[dplyr]{mutate}},\code{\link[dplyr]{arrange}},\code{\link[dplyr]{desc}}
@@ -15,6 +13,7 @@
 #' @importFrom reshape2 melt
 #' @importFrom dplyr mutate arrange desc
 uniquely = function(L, Names = F, highest = T) {
+
     stopifnot(!is.null(names(L)))
 
     dat = cbind.data.frame(reshape2::melt(L), reshape2::melt(sapply(L, names, simplify = F)))

@@ -33,13 +33,13 @@ t_tests = function(m,
 
     if (is.null(m2)) {
         stopifnot(!is.null(group) & all(group %in% colnames(m)))
-        m2 = m[, setdiff(colnames(m), group)]
-        m = m[, group]
+        m2 = m[, setdiff(colnames(m), group), drop = F]
+        m = m[, group, drop = F]
     }
 
     stopifnot(nrow(m) == nrow(m2))
     p = sapply(1:nrow(m), function(i) stats::t.test(m[i, ], m2[i, ])$p.value)
     p = stats::p.adjust(p, method = adjust.method)
-    stats::setNames(p, rownames(m))
+    setNames(p, rownames(m))
 }
 

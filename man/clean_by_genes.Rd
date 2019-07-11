@@ -2,16 +2,18 @@
 % Please edit documentation in R/clean_by_genes.R
 \name{clean_by_genes}
 \alias{clean_by_genes}
-\title{clean_by_genes}
+\title{Filter for Statistically Significant Clusters}
 \usage{
-clean_by_genes(L, nsig1 = 30, nsig2 = 5)
+clean_by_genes(L, nsig1 = 30, nsig2 = 5, return.index = FALSE)
 }
 \arguments{
 \item{L}{List of clusters' differentially expressed genes}
 
-\item{nsig1}{cutoff for number of differentially expressed genes. Default: 30}
+\item{nsig1}{cutoff for number of differentially expressed genes. Set to FALSE if not desired. Default: 30}
 
-\item{nsig2}{cutoff for number of most differentially expressed genes. Default: 5}
+\item{nsig2}{cutoff for number of most differentially expressed genes. Set to FALSE if not desired. Default: 5}
+
+\item{return.index}{boolean value indicating whether a vector of indexes to keep should be returned instead of the filtered list. Default: FALSE}
 }
 \value{
 a filtered list of statistically significant clusters. ie. those passing nsig1 and nsig2 cutoffs.

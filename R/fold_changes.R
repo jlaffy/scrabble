@@ -16,8 +16,8 @@ fold_changes = function(m,
 
     if (is.null(m2)) {
         stopifnot(!is.null(group) & all(group %in% colnames(m)))
-        m2 = m[, setdiff(colnames(m), group)]
-        m = m[, group]
+        m2 = m[, setdiff(colnames(m), group), drop = F]
+        m = m[, group, drop = F]
     }
     if (is.log) {
         return(rowMeans(m) - rowMeans(m2))
