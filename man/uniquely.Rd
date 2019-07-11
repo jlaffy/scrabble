@@ -19,9 +19,6 @@ List of named numeric vectors, with only one instance of each name across all ve
 \description{
 unique instances of names (Genes) across a list of named numeric vectors
 }
-\details{
-DETAILS
-}
 \seealso{
 \code{\link[reshape2]{melt}}
  \code{\link[dplyr]{mutate}},\code{\link[dplyr]{arrange}},\code{\link[dplyr]{desc}}

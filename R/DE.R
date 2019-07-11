@@ -5,14 +5,15 @@
 #' @param m matrix 1
 #' @param m2 matrix 2. If null, m2 = m[, !group]. Defaut: NULL
 #' @param group if m2 not supplied, m = m[, group]; m2 = m[, !group]. Default: NULL
-#' @param is.log values are in log2 (used in fold_changes), Default: T
-#' @param FC fold change cutoff, Default: 2
+#' @param is.log values are in log2 (used in fold_changes). Default: T
+#' @param FC fold change cutoff. If not desired, set to FALSE. Default: 2
 #' @param adjust.method Correction for multiple tests. If not desired, set to 'none'. Default: 'BH'
-#' @param p p-value cutoff, Default: 0.01
-#' @param p.sort returning values are sorted by p-value (most significant first), Default: F
-#' @param return.all return all values (p-values and fold-change values), Default: F
-#' @param return.p return p-values, Default: F
-#' @param fast if TRUE, computes p-values for significant fold-change values only, Default: FALSE
+#' @param p p-value cutoff. If not desired, set to FALSE. Default: 0.01
+#' @param sort a boolean value indicating whether result should be sorted. Default: T
+#' @param p.sort returning values are sorted by p-value (most significant first). Default: F
+#' @param return.full return both fold-change values (default) and p-values. Default: F
+#' @param return.p return p-values. Default: F
+#' @param fast if TRUE, computes p-values for significant fold-change values only. Default: FALSE
 #' @return (log2) fold-change values for rows in m, sorted by FC (highest first) and including only those that are significant according to FC and p cutoffs.
 #' @details DETAILS
 #' @rdname DE
@@ -24,8 +25,9 @@ DE = function(m,
               FC = 2,
               adjust.method = 'BH',
               p = 0.01,
+              sort = T,
               p.sort = F,
-              return.all = F,
+              return.full = F,
               return.p = F,
               fast = FALSE) {
 
@@ -40,18 +42,18 @@ DE = function(m,
                        is.log = is.log)
 
     # if data in log form, convert FoldChange value to log2
-    if (is.log) {
+    if (is.numeric(FC) & is.log) {
         FC = log2(FC)
     }
 
-    if (isFALSE(return.all) & isTRUE(fast)) {
+    if (is.numeric(FC) & isTRUE(fast) & !isTRUE(return.full)) {
         genesPassingFC = which(fcs >= FC)
         if (length(genesPassingFC) == 0) {
             return(genesPassingFC)
         }
         fcs = fcs[genesPassingFC]
-        m = m[genesPassingFC, ]
-        m2 = m2[genesPassingFC, ]
+        m = m[genesPassingFC, , drop = F]
+        m2 = m2[genesPassingFC, , drop = F]
     }
 
     # (2) calculate p-values across corresponding pairs of rows from the two matrices
@@ -60,12 +62,32 @@ DE = function(m,
                  group = group,
                  adjust.method = adjust.method)
 
+    if (sort) {
+        # sort by p values instead of by fold_changes
+        if (p.sort) {
+            Order = order(ps, decreasing = F) # sort by p values (smallest first)
+        } else {
+            Order = order(fcs, decreasing = T) # sort by fold_changes (largest first)
+        }
+        
+        fcs = fcs[Order]
+        ps = ps[Order]
+    }
+
     # (3) get indexes of statistically significant differences
     # as defined by the FoldChange value and the P-value
-    ind = which(fcs >= FC & ps <= p)
+    if (is.numeric(p) & is.numeric(FC)) {
+        ind = which(fcs >= FC & ps <= p)
+    } else if (is.numeric(p)) {
+        ind = which(ps <= p)
+    } else if (is.numeric(FC)) {
+        ind = which(fcs >= FC)
+    } else {
+        ind = stats::setNames(1:length(fcs), names(fcs))
+    }
 
-    if (return.all) {
-        return(list(fold.change = fcs, p.value = ps, significant = ind))
+    if (return.full) {
+        return(list(fold.change = fcs, p.value = ps, DEgenes =ind))
     }
 
     # return p values instead of fold_changes?
@@ -75,10 +97,5 @@ DE = function(m,
         result = stats::setNames(fcs[ind], names(fcs)[ind]) # return fold_changes
     }
 
-    # sort by p values instead of by fold_changes
-    if (p.sort) {
-        return(result[order(ps[ind], decreasing = F)]) # sort by p values (smallest first)
-    }
-    
-    result[order(fcs[ind], decreasing = T)] # sort by fold_changes (largest first)
+    result
 }

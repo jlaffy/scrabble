@@ -5,8 +5,8 @@
 \title{DE}
 \usage{
 DE(m, m2 = NULL, group = NULL, is.log = T, FC = 2,
-  adjust.method = "BH", p = 0.01, p.sort = F, return.all = F,
-  return.p = F, fast = FALSE)
+  adjust.method = "BH", p = 0.01, sort = T, p.sort = F,
+  return.full = F, return.p = F, fast = FALSE)
 }
 \arguments{
 \item{m}{matrix 1}
@@ -15,21 +15,23 @@ DE(m, m2 = NULL, group = NULL, is.log = T, FC = 2,
 
 \item{group}{if m2 not supplied, m = m[, group]; m2 = m[, !group]. Default: NULL}
 
-\item{is.log}{values are in log2 (used in fold_changes), Default: T}
+\item{is.log}{values are in log2 (used in fold_changes). Default: T}
 
-\item{FC}{fold change cutoff, Default: 2}
+\item{FC}{fold change cutoff. If not desired, set to FALSE. Default: 2}
 
 \item{adjust.method}{Correction for multiple tests. If not desired, set to 'none'. Default: 'BH'}
 
-\item{p}{p-value cutoff, Default: 0.01}
+\item{p}{p-value cutoff. If not desired, set to FALSE. Default: 0.01}
 
-\item{p.sort}{returning values are sorted by p-value (most significant first), Default: F}
+\item{sort}{a boolean value indicating whether result should be sorted. Default: T}
 
-\item{return.all}{return all values (p-values and fold-change values), Default: F}
+\item{p.sort}{returning values are sorted by p-value (most significant first). Default: F}
 
-\item{return.p}{return p-values, Default: F}
+\item{return.full}{return both fold-change values (default) and p-values. Default: F}
 
-\item{fast}{if TRUE, computes p-values for significant fold-change values only, Default: FALSE}
+\item{return.p}{return p-values. Default: F}
+
+\item{fast}{if TRUE, computes p-values for significant fold-change values only. Default: FALSE}
 }
 \value{
 (log2) fold-change values for rows in m, sorted by FC (highest first) and including only those that are significant according to FC and p cutoffs.
