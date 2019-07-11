@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
-#' @title data matrix --> ordered correlation matrix in one word
-#' @description Calls the scrabble function clsuta() to generate a correlation matrix with the parameters specified and subsequently order the columns and rows by hierarchical clustering. 
+#' @title Generate ordered correlation matrices on the fly, FLexiblY. 
+#' @description Calls the scrabble function clusta() to generate a correlation matrix with the parameters specified and subsequently order the columns and rows by hierarchical clustering, again with parameters specified by the user (defaults are recommended for single-cell expression (RNAseq) data). 
 #' @param mat matrix. Default: NULL
 #' @param hc.method a character string indicating which agglomeration method to use. Default: 'average'
 #' @param cor.method a character string indicating which correlation coefficient is to be computed. Default: 'pearson'
@@ -13,7 +13,6 @@
 #'  \code{\link[scrabble]{clusta}}
 #' @rdname creorder
 #' @export 
-#' @importFrom scrabble clusta
 creorder = function(mat = NULL,
                     hc.method = 'average', 
                     cor.method = 'pearson',
