@@ -143,6 +143,8 @@ clusters = function(m = NULL,
         Clusters = clusters
     }
 
+    if (length(Clusters) == 0) return(NULL)
+
     if (size.filter) {
         Clusters = clean_by_size(clusters = Clusters,
                                  min.rel = min.rel,
@@ -154,6 +156,10 @@ clusters = function(m = NULL,
         stop('Cannot cut by significance or by similarity without running DEA. Please set DEA to TRUE.')
     }
 
+    if (length(Clusters) == 0) {
+        print('No clusters passed size cutoffs')
+        return(NULL)
+    }
 
     if (!DEA) {
         return(Clusters)
@@ -187,6 +193,7 @@ clusters = function(m = NULL,
                        adjust.method = adjust.method)
     }
 
+    if (length(degenes$clusters) == 0) return(NULL)
 
     if (significance.filter) {
         indexes = clean_by_genes(L = degenes$DEgenes,
@@ -201,6 +208,10 @@ clusters = function(m = NULL,
         degenes[exclude] = sapply(degenes[exclude], function(L) L[indexes], simplify = F)
     }
 
+    if (length(degenes$clusters) == 0) {
+        print('No clusters passed significance cutoffs')
+        return(NULL)
+    }
 
     if (return.p) {
         highest = F
@@ -245,6 +256,11 @@ clusters = function(m = NULL,
 
         exclude = -1 * (length(degenes)-2):length(degenes)
         degenes[exclude] = sapply(degenes[exclude], function(L) L[indexes], simplify = F)
+    }
+
+    if (length(degenes$clusters) == 0) {
+        print('No clusters passed similarity cutoffs')
+        return(NULL)
     }
 
     degenes
