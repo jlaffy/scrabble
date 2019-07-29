@@ -7,7 +7,7 @@
 \method{range}{rowMeans}(mat)
 }
 \arguments{
-\item{a}{matrix}
+\item{mat}{a matrix}
 }
 \value{
 the range of the rowMeans of the matrix provided.

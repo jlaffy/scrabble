@@ -68,7 +68,7 @@ nrows <- function(mats) {
 
 #' @title Range of the rowMeans of a matrix
 #' @description Returns the range over the rowMeans of a matrix
-#' @param a matrix
+#' @param mat a matrix
 #' @return the range of the rowMeans of the matrix provided.
 #' @rdname range.rowMeans
 range.rowMeans <- function(mat) {
