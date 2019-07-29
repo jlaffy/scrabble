@@ -90,6 +90,9 @@ score <- function(mat,
         bin.control = FALSE
     } 
 
+    if (bin.control && is.null(binmat) && all(unique(round(rowMeans(mat), 3)) == 0)) {
+        message('Warning: if <mat> is row-centered and <binmat> was not provided, your bins will not be meaningful.')
+    }
     # Get bin controls
     if (bin.control) {
         # Make bins if not provided
