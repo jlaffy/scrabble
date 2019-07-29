@@ -15,7 +15,11 @@ Imports:
     dplyr,
     stats,
     magrittr,
-    reshape2
+    reshape2,
+    Rtsne,
+    umap,
+    igraph,
+    FNN
 Suggests: 
     testthat (>= 2.1.0)
 RoxygenNote: 6.1.1

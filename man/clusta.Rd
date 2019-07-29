@@ -4,18 +4,18 @@
 \alias{clusta}
 \title{clusta}
 \usage{
-clusta(mat = NULL, CR = FALSE, HC = FALSE, ORD = FALSE,
+clusta(mat = NULL, cr = FALSE, hc = FALSE, ord = FALSE,
   hc.method = "average", cor.method = "pearson", compute.dist = T,
   dist.method = "euclidean", ord.labels = T)
 }
 \arguments{
 \item{mat}{matrix. Default: NULL}
 
-\item{CR}{correlation matrix. If provided, CR will not be computed with mat. Default: FALSE}
+\item{cr}{correlation matrix. If provided, cr will not be computed with mat. Default: FALSE}
 
-\item{HC}{hclust object. If provided, HC will not be computed with CR. Default: FALSE}
+\item{hc}{hclust object. If provided, hc will not be computed with cr. Default: FALSE}
 
-\item{ORD}{ordered character vector, retrieved from HC. Default: FALSE}
+\item{ord}{ordered character vector, retrieved from hc. Default: FALSE}
 
 \item{hc.method}{a character string indicating which agglomeration method to use. Default: 'average'}
 
@@ -28,21 +28,11 @@ clusta(mat = NULL, CR = FALSE, HC = FALSE, ORD = FALSE,
 \item{ord.labels}{if FALSE, will return ordered indices rather than character vector. Default: T}
 }
 \value{
-The function proceeds through the following steps: (1) compute correlation matrix, (2) compute hierarchical clustering object, (3) retrieve ordered character vector. It will start at the point for which an object is provided. i.e. if CR is provided, then step (1) is skipped. It will either return a list with all computed objects \code{list(CR = cr, HC = hc, ORD = ord)} or stop at the point at which an argument is set to TRUE. i.e. if CR = T, step (3) is skipped and
+The function proceeds through the following steps: (1) compute correlation matrix, (2) compute hierarchical clustering object, (3) retrieve ordered character vector. It will start at the point for which an object is provided. i.e. if cr is provided, then step (1) is skipped. It will either return a list with all computed objects \code{list(cr = cr, hc = hc, ord = ord)} or stop at the point at which an argument is set to TRUE. i.e. if cr = T, step (3) is skipped and
 only the correlation matrix is returned. Thus, users can provide an expression matrix and ask for the ordered columns' character vector, or provide a correlation matrix and ask for the corresponding hierarchical clustering object and so on.
 }
 \description{
 All things hierarchical clustering
-}
-\details{
-DETAILS
-}
-\examples{
-\dontrun{
-if(interactive()){
- #EXAMPLE1
- }
-}
 }
 \seealso{
 \code{\link[stats]{cor}},\code{\link[stats]{hclust}},\code{\link[stats]{dist}}

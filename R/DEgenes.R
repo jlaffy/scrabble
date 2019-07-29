@@ -1,70 +1,101 @@
+#!/usr/bin/env Rscript
 
-#' @title Differential Gene Expression Analysis across Cell Clusters
-#' @description This function returns the genes differentially expressed in a given cluster of cells relative to the remaining cells in the matrix. If a list of clusters is provided, DEgenes will be computed for each cluster in turn. Differential expression is calculated according to fold changes and p-values. The user can specify the fold change and p-value with which genes are deemed (DE-)significant. With default arguments, genes are considered significant if FC >= 2 and p-value
-#' (Benjamin-Hochberg-adjusted) <= 0.01. Also with default arguments, fold-change values are returned and genes are sorted by fold-change (largest first). The user can instead ask for genes to be sorted by p-value (most significant first) or for p-values to be returned or both. Alternatively, if the user requires fold change values and p-values for all genes (not just those that are significant), they can set return.full = TRUE. This parameter will return a list containing (1) all clusters, (2) fold-change values for all genes, (3) p-values for all genes, (4) the gene names and indices of the DE-significant genes and (5-7) the fold change and p-value cutoffs used as well as the method used to adjust p-values for multiple testing. 
-#' @param m matrix
-#' @param clusters List of cluster memberships (character vectors). If provided, will be used instead of computed.. Default: NULL
-#' @param FC fold change cutoff. Default: 2
+#' @title DEgenes
+#' @description Differential Expression between Groups
+#' @param m matrix 1
+#' @param m2 matrix 2. If null, m2 = m[, !group]. Defaut: NULL
+#' @param group if m2 not supplied, m = m[, group]; m2 = m[, !group]. Default: NULL
 #' @param is.log values are in log2 (used in fold_changes). Default: T
-#' @param p p-value cutoff. Default: 0.01
+#' @param FC fold change cutoff. If not desired, set to FALSE. Default: 2
 #' @param adjust.method Correction for multiple tests. If not desired, set to 'none'. Default: 'BH'
-#' @param sort returning values are sorted by fold change (largest first). Default: T
+#' @param p p-value cutoff. If not desired, set to FALSE. Default: 0.01
+#' @param sort a boolean value indicating whether result should be sorted. Default: T
 #' @param p.sort returning values are sorted by p-value (most significant first). Default: F
-#' @param return.full return cluster membership and cluster DE genes. Default: F
-#' @param return.p return cluster DE p-values. Default: F
-#' @param fast if TRUE, computes p-values for significant fold-change values only. Default: T
-#' @return with default parameters, will return a list of differentially expressed genes in statistically significant clusters. Differentially expressed genes are those passing fold change and p-value cutoffs. Statistically significant clusters are those passing nsig1 and nsig2 cutoffs. Within clusters, gene values displayed are fold changes and genes are ordered by highest FC first. 
+#' @param return.full return both fold-change values (default) and p-values. Default: F
+#' @param return.p return p-values. Default: F
+#' @param fast if TRUE, computes p-values for significant fold-change values only. Default: FALSE
+#' @return (log2) fold-change values for rows in m, sorted by FC (highest first) and including only those that are significant according to FC and p cutoffs.
 #' @details DETAILS
-#' @rdname genes
+#' @rdname DEgenes
 #' @export 
 DEgenes = function(m,
-                   clusters,
-                   FC = 2,
+                   m2 = NULL,
+                   group = NULL,
                    is.log = T,
-                   p = 0.01,
+                   FC = 2,
                    adjust.method = 'BH',
+                   p = 0.01,
                    sort = T,
                    p.sort = F,
                    return.full = F,
                    return.p = F,
-                   fast = T) {
+                   fast = FALSE) {
 
-    # if only one cluster was provided and is a character vector instead of a list of length one
-    # convert to a list
-    if (all(lengths(clusters) == 1)) {
-        clusters = list(clusters)
+    # if <group> provided instead of m2
+    # m is split to m[, group] and m[, setdiff(colnames(m), group)]
+    stopifnot(sum(sapply(list(m2, group), is.null)) == 1)
+
+    # (1) calculate fold change values between corresponding pairs of rows from the two matrices
+    fcs = fold_changes(m = m,
+                       m2 = m2,
+                       group = group,
+                       is.log = is.log)
+
+    # if data in log form, convert FoldChange value to log2
+    if (is.numeric(FC) & is.log) {
+        FC = log2(FC)
     }
 
-    # if (verbose) {
-    #     print(paste0('Performing differential expression analysis on ', length(Clusters), ' clusters'))
-    # }
+    if (is.numeric(FC) & isTRUE(fast) & !isTRUE(return.full)) {
+        genesPassingFC = which(fcs >= FC)
+        if (length(genesPassingFC) == 0) {
+            return(genesPassingFC)
+        }
+        fcs = fcs[genesPassingFC]
+        m = m[genesPassingFC, , drop = F]
+        m2 = m2[genesPassingFC, , drop = F]
+    }
 
-    clusterGenes = sapply(clusters, function(group) {
-                              DE(m = m,
-                                 group = group,
-                                 FC = FC,
-                                 is.log = is.log,
-                                 p = p,
-                                 adjust.method = adjust.method,
-                                 sort = sort,
-                                 p.sort = p.sort,
-                                 return.full = return.full,
-                                 return.p = return.p,
-                                 fast = fast)},
-                          simplify = F)
+    # (2) calculate p-values across corresponding pairs of rows from the two matrices
+    ps = t_tests(m = m,
+                 m2 = m2,
+                 group = group,
+                 adjust.method = adjust.method)
+
+    if (sort) {
+        # sort by p values instead of by fold_changes
+        if (p.sort) {
+            Order = order(ps, decreasing = F) # sort by p values (smallest first)
+        } else {
+            Order = order(fcs, decreasing = T) # sort by fold_changes (largest first)
+        }
+        
+        fcs = fcs[Order]
+        ps = ps[Order]
+    }
+
+    # (3) get indexes of statistically significant differences
+    # as defined by the FoldChange value and the P-value
+    if (is.numeric(p) & is.numeric(FC)) {
+        ind = which(fcs >= FC & ps <= p)
+    } else if (is.numeric(p)) {
+        ind = which(ps <= p)
+    } else if (is.numeric(FC)) {
+        ind = which(fcs >= FC)
+    } else {
+        ind = stats::setNames(1:length(fcs), names(fcs))
+    }
 
     if (return.full) {
-        clusterGenes = list(clusters = clusters,
-                            fold.change = sapply(clusterGenes, `[[`, 'fold.change', simplify = F),
-                            p.value = sapply(clusterGenes, `[[`, 'p.value', simplify = F),
-                            DEgenes = sapply(clusterGenes, `[[`, "DEgenes", simplify = F),
-                            fold.change.cutoff = FC,
-                            p.value.cutoff = p,
-                            adjust.method = adjust.method)
-
-        return(clusterGenes)
+        return(list(fold.change = fcs, p.value = ps, DEgenes = ind))
     }
 
-    clusterGenes
+    # return p values instead of fold_changes?
+    if (return.p) {
+        result = stats::setNames(ps[ind], names(fcs)[ind]) # return p values
+    } else {
+        result = stats::setNames(fcs[ind], names(fcs)[ind]) # return fold_changes
+    }
 
+    result
 }

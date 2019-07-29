@@ -9,14 +9,9 @@ build_graph(knn, member_names = NULL)
 \arguments{
 \item{knn}{a dataframe with the k-nearest neighbours and corresponding weights (1/1 + the euclidean distance).}
 
-\item{member_names}{a character vector. Only applicable if KNN output is provided rather than a KNN dataframe, and this will replace the member IDs with the character names. Default: NULL}
-}
-\value{
-igraph graph
+\item{member_names}{a character vector. Only applicable if KNN output is provided rather than a KNN dataframe, and this will replace the member IDs with the character names. Default: NULL
+\code{\link[igraph]{as_data_frame}},\code{\link[igraph]{simplify}}}
 }
 \description{
 Computes an igraph graph from KNN output or a KNN data frame with three columns - 'from', 'to', and 'weight'.
-}
-\seealso{
-\code{\link[igraph]{as_data_frame}},\code{\link[igraph]{simplify}}
 }

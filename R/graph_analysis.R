@@ -1,47 +1,4 @@
 
-#' @title Uniform Manifold Approximation and Projection
-#' @description Computes a manifold approximation and projection and returns the embedding coordinates matrix. Wrapper function for umap::umap().
-#' @param mat input matrix (each row is a variable / a gene and each column is an observation / a cell. 
-#' @param dist.method a character string for the distance metric used. One of pearson, euclidean, manhattan, cosine or pearson2. Default: 'pearson'
-#' @param spread a numeric value that is used during automatic estimation of a/b parameters. Default: 0.5
-#' @param min.dist a numeric value that determines how close points appear in the final layout. Default: 0.1
-#' @param ... other arguments passed to umap
-#' @return coordinates embedding matrix
-#' @seealso 
-#'  \code{\link[umap]{umap.defaults}},\code{\link[umap]{c("umap", "umap")}}
-#' @rdname build_umap
-#' @export 
-#' @importFrom umap umap.defaults umap
-build_umap = function(mat, dist.method = 'pearson', spread = 0.5, min.dist = 0.1, ...) {
-    # min.dist 0.001 ?
-    umap.custom = umap::umap.defaults
-    umap.custom$metric = dist.method
-    umap.custom$spread = spread
-    umap.custom$min_dist = min.dist
-    coord.mat = umap::umap(t(mat), config = umap.custom, ...)$layout
-    colnames(coord.mat) = c('UMAP.Dim1', 'UMAP.Dim2')
-    coord.mat
-}
-
-
-#' @title t-Distributed Stochastic Neighbour Embedding (Barnes-Hut implementation)
-#' @description Computes a low dimensional embedding of high-dimensional data and returns the embedding coordinates matrix. Wrapper function for Rtsne::Rtsne().
-#' @param mat input matrix (each row is a variable / a gene and each column is an observation / a cell. 
-#' @param ... other arguments passed to Rtsne
-#' @return coordinates embedding matrix 
-#' @seealso 
-#'  \code{\link[Rtsne]{Rtsne}}
-#' @rdname build_tsne
-#' @export 
-#' @importFrom Rtsne Rtsne
-build_tsne = function(mat, ...) {
-    coord.mat = Rtsne::Rtsne(t(mat), ...)$Y
-    rownames(coord.mat) = colnames(mat)
-    colnames(coord.mat) = c('tSNE.Dim1', 'tSNE.Dim2')
-    coord.mat
-}
-
-
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
 #' @param mat input matrix (each row is a variable / a gene and each column is an observation / a cell. 
@@ -63,7 +20,7 @@ build_coordinates = function(mat, method = 'tsne', ...) {
 }
 
 
-.knn_as_data_frame = function(knn, member_names = NULL) {
+.knn_as_data_frame = function(knn, k, member_names = NULL) {
     from = rep(1:nrow(knn$nn.index), k)
     to = as.vector(knn$nn.index)
     weight = 1/(1 + as.vector(knn$nn.dist))
@@ -95,21 +52,19 @@ build_knn = function(mat, k = seq(5, 30, 1), algorithm = 'kd_tree') {
     .build_knn = function(mat, k, algorithm) {
         mat = as.matrix(mat)
         knn = FNN::get.knn(mat, k = k, algorithm = algorithm)
-        knn = .knn_as_data_frame(knn = knn, member_names = rownames(mat))
+        knn = .knn_as_data_frame(knn = knn, k = k, member_names = rownames(mat))
     }
 
     sapply(k, function(ki) {
                .build_knn(mat = mat, k = ki, algorithm = algorithm)},
                simplify = F)
 }
-
+ 
 
 #' @title Create igraph graph from KNN output
 #' @description Computes an igraph graph from KNN output or a KNN data frame with three columns - 'from', 'to', and 'weight'.
 #' @param knn a dataframe with the k-nearest neighbours and corresponding weights (1/1 + the euclidean distance).
 #' @param member_names a character vector. Only applicable if KNN output is provided rather than a KNN dataframe, and this will replace the member IDs with the character names. Default: NULL
-#' @return igraph graph
-#' @seealso 
 #'  \code{\link[igraph]{as_data_frame}},\code{\link[igraph]{simplify}}
 #' @rdname build_graph
 #' @export 
@@ -235,10 +190,10 @@ graph_analysis = function(mat = NULL,
 
     config = list('parameters!')
 
-    return(list(coord.mat = coord.mat,
-                knn = knn,
-                graph = graph,
-                clusters = clusters,
-                config = config))
+    list(coord.mat = coord.mat,
+         knn = knn,
+         graph = graph,
+         clusters = clusters,
+         config = config)
 }
 
