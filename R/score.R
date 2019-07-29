@@ -107,14 +107,14 @@ score <- function(mat,
             controls = sapply(groups,
                               scrabble::binmatch,
                               bins = bins,
-                              n = bin.size,
+                              n = n,
                               replace = replace,
                               simplify = F)
         } else {
             # If <groups> is one:
             controls = scrabble::binmatch(Group = groups,
                                    bins = bins,
-                                   n = bin.size,
+                                   n = n,
                                    replace = replace) }
     }
 

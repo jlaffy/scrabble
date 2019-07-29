@@ -49,7 +49,7 @@ binmatch <- function(Group,
                      n = 100,
                      replace = FALSE,
                      ...) {
-    .check_args_exist(x = x, mat = mat, bins = bins)
+    .check_args_exist(x = x, data = mat, bins = bins)
 
     if (!is.null(x) | !is.null(mat)) {
         bins = bin(x = x, mat = mat, breaks = nbin, ...)
