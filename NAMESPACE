@@ -3,6 +3,7 @@
 export(DEA)
 export(DEgenes)
 export(bin)
+export(binmatch)
 export(build_coordinates)
 export(build_graph)
 export(build_knn)
