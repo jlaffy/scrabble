@@ -8,7 +8,11 @@ binmatch(Group, mat = NULL, x = NULL, bins = NULL, nbin = 30,
   n = 100, replace = FALSE, ...)
 }
 \arguments{
+\item{Group}{a character vector.}
+
 \item{mat}{a matrix.}
+
+\item{x}{a named numeric vector to generate bins from. If NULL, x will be computed from mat. Default: NULL}
 
 \item{bins}{a named character vector with as names the rownames and as values the ID of each bin. Default: NULL}
 
@@ -17,8 +21,6 @@ binmatch(Group, mat = NULL, x = NULL, bins = NULL, nbin = 30,
 \item{n}{numeric value for the number of control values to return per value in Group. Default: 100}
 
 \item{replace}{boolean value. Allow bin sampling to be done with replacement. Default: F}
-
-\item{groups}{a character vector or list of character vectors. Each character vector is a group or signature to score each column against.}
 }
 \value{
 a character vector of length n * length(Group), containing the binmatched values for the values (gene names) in Group.
