@@ -8,19 +8,32 @@
 #' @param x character vector or list of character vectors
 #' @param y optional character vector or list of character vectors. If x is a character vector, y must be provided. Default: NULL
 #' @return numeric Jaccard value between x and y if both are character vectors or a matrix of Jaccard values between all pairs of character vectors amongst x if x is a list and y was not provided, or between x and y if y was provided. If x and y were provided, the elements in x correspond to the columns in the output matrix.
-#' @examples 
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
 #' @rdname jaccard
 #' @export 
-jaccard <- function(x, y = NULL) {
+jaccard <- function(x, y = NULL, order = F, dist.method = 'manhattan') {
+    if (!is.null(dim(x))) {
+        x = as.list(as.data.frame(x, stringsAsFactors = F))
+    }
+    
     if (is.null(y)) y = x
+
+    if (!is.null(dim(y))) {
+        y = as.list(as.data.frame(y, stringsAsFactors = F))
+    }
+
     are.chars = sum(sapply(list(x, y), is.character)) == 2
     are.lists = sum(sapply(list(x, y), is.list)) == 2
+
     stopifnot(are.chars|are.lists)
+
     if (are.chars) return(.jaccard(x = x, y = y))
-    map_combinations(x, y, FUN = .jaccard)
+    
+    jacmat = scrabble::comply(x, y, FUN = .jaccard)
+
+    mat = scrabble::reorder(jacmat,
+                            corr = FALSE,
+                            dist.method = dist.method,
+                            col = order,
+                            row = order)
+    mat
 }
