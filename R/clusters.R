@@ -15,7 +15,7 @@
 
     if (is.null(hc)) {
         hc = clusta(mat = m,
-                    HC = T,
+                    hc = T,
                     compute.dist = compute.dist,
                     dist.method = dist.method,
                     cor.method = cor.method,
@@ -28,13 +28,10 @@
 
     Clusters = stats::cutree(tree = hc, h = h, k = k)
     labels = rownames(Clusters)
-    Clusters = Clusters %>% 
-        as.data.frame %>%
-        as.list %>%
-        sapply(., function(clusterID) split(labels, clusterID), simplify = F) %>%
-        unlist(recursive = F, use.names = F) %>%
-        stats::setNames(., 1:length(.))
-    Clusters
+    Clusters = as.list(as.data.frame(Clusters))
+    Clusters = sapply(Clusters, function(ID) split(labels, ID), simplify =F)
+    Clusters = unlist(Clusters, recursive = F, use.names = F)
+    stats::setNames(Clusters, 1:length(Clusters))
 }
 
 
@@ -169,17 +166,17 @@ clusters = function(m = NULL,
     if (verbose) {
         print(paste0('Running differential gene expression on ', length(Clusters), ' clusters'))
     }
-    degenes = DEgenes(m = m,
-                      clusters = Clusters,
-                      FC = FC,
-                      is.log = is.log,
-                      p = p,
-                      adjust.method = adjust.method,
-                      sort = sort,
-                      p.sort = p.sort,
-                      return.full = return.full,
-                      return.p = return.p,
-                      fast = fast)
+    degenes = DEA(m = m,
+                  clusters = Clusters,
+                  FC = FC,
+                  is.log = is.log,
+                  p = p,
+                  adjust.method = adjust.method,
+                  sort = sort,
+                  p.sort = p.sort,
+                  return.full = return.full,
+                  return.p = return.p,
+                  fast = fast)
 
     if (return.full) {
         degenes$DEgenes = Map(function(x, ind) x[ind],

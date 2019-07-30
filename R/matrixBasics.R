@@ -41,6 +41,7 @@ dims <- function(mats) {
 #' @param m a list of matrices (or a single matrix)
 #' @return ncol for each matrix provided.
 #' @rdname ncols
+#' @export 
 ncols <- function(mats) {
     # if mats is a single matrix:
     if (!is.null(dim(mats))) {
@@ -56,6 +57,7 @@ ncols <- function(mats) {
 #' @param m a list of matrices (or a single matrix)
 #' @return nrow for each matrix provided.
 #' @rdname nrows
+#' @export 
 nrows <- function(mats) {
     # if mats is a single matrix:
     if (!is.null(dim(mats))) {
@@ -71,6 +73,7 @@ nrows <- function(mats) {
 #' @param mat a matrix
 #' @return the range of the rowMeans of the matrix provided.
 #' @rdname range.rowMeans
+#' @export 
 range.rowMeans <- function(mat) {
     range(rowMeans(mat))
 }
