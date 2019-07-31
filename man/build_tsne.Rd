@@ -18,5 +18,5 @@ coordinates embedding matrix
 Computes a low dimensional embedding of high-dimensional data and returns the embedding coordinates matrix. Wrapper function for Rtsne::Rtsne().
 }
 \seealso{
-\code{\link[Rtsne]{Rtsne}}
+Rtsne
 }

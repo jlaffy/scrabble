@@ -7,7 +7,6 @@
 #' @param row.order a boolean value indicating whether the resulting membership matrix should have rows reordered. Default: F
 #' @param dist.method a character string indicating the distance method to be used for the hierarchichal ordering. e.g. 'manhattan', 'euclidean'. Default: 'manhattan'
 #' @return a matrix of 0s and 1s for each of the unique strings in X in each of the vectors or columns in X.
-#' @examples 
 #' @rdname membership
 #' @export 
 membership = function(X,

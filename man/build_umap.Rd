@@ -20,5 +20,5 @@ coordinates embedding matrix
 Computes a manifold approximation and projection and returns the embedding coordinates matrix. Wrapper function for umap::umap().
 }
 \seealso{
-\code{\link[umap]{umap.defaults}},\code{\link[umap]{c("umap", "umap")}}
+umap, umap.defaults
 }

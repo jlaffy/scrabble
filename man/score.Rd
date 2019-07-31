@@ -5,15 +5,12 @@
 \title{Score matrix columns for groups of rows}
 \usage{
 score(mat, groups, controls = NULL, center = F, bin.control = F,
-  bins = NULL, binmat = NULL, nbin = 30, replace = F,
-  bin.size = 100)
+  bins = NULL, binmat = NULL, nbin = 30, replace = F, n = 100)
 }
 \arguments{
 \item{mat}{a matrix.}
 
 \item{groups}{a character vector or list of character vectors. Each character vector is a group or signature to score each column against.}
-
-\item{controls}{PA Default: NULL}
 
 \item{center}{boolean value. Should the resulting score matrix be row-centered? Default: F}
 
@@ -27,7 +24,9 @@ score(mat, groups, controls = NULL, center = F, bin.control = F,
 
 \item{replace}{boolean value. Allow bin sampling to be done with replacement. Default: F}
 
-\item{bin.size}{numeric value. How big should the bins be? Default: 100}
+\item{n}{numeric value for the number of control values/genes to return per value/gene in (each) <group(s)>. Default: 100}
+
+\item{controls.}{Default: NULL}
 }
 \value{
 a matrix with as rows the columns of the input matrix and as columns the scores of each group provided in groups. If one group is provided, the matrix returned will have 1 column.
