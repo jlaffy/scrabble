@@ -2,6 +2,7 @@
 
 export(DEA)
 export(DEgenes)
+export(all_identical)
 export(bin)
 export(build_coordinates)
 export(build_graph)
