@@ -2,6 +2,7 @@
 
 export(DEA)
 export(DEgenes)
+export(all_identical)
 export(bin)
 export(binmatch)
 export(build_coordinates)

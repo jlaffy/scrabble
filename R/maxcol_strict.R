@@ -14,9 +14,9 @@ maxcol_strict <- function(mat, min = NULL, diff = NULL, splitByCol = FALSE) {
 
     if (is.null(dim(mat))) stop('Please provide a matrix or dataframe.')
     if (is.null(diff)) diff = -Inf
-    if (is.null(max)) max = -Inf
+    if (is.null(min)) min = -Inf
 
-    minbool = quote(max(row) >= max)
+    minbool = quote(max(row) >= min)
     diffbool = quote(sort(row, decreasing = T)[1] - sort(row, decreasing = T)[2] >= diff)
     bool = apply(mat, 1, function(row) eval(minbool) & eval(diffbool))
     maxes = stats::setNames(rownames(mat[bool,]), colnames(mat)[max.col(mat[bool,])])
