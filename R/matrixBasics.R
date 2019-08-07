@@ -32,7 +32,7 @@ dims <- function(mats) {
         return(dim(mats))
     }
     # if mats is a list of matrices:
-    sapply(mats, dim, simplify =F)
+    sapply(mats, dim, simplify = T)
 }
 
 
@@ -48,7 +48,7 @@ ncols <- function(mats) {
         return(ncol(mats))
     }
     # if mats is a list of matrices:
-    sapply(mats, ncol, simplify =F)
+    sapply(mats, ncol, simplify = T)
 }
 
 
@@ -64,7 +64,7 @@ nrows <- function(mats) {
         return(nrow(mats))
     }
     # if mats is a list of matrices:
-    sapply(mats, nrow, simplify =F)
+    sapply(mats, nrow, simplify = T)
 }
 
 
