@@ -27,5 +27,5 @@ creorder = function(mat = NULL,
                            dist.method = dist.method,
                            ord.labels = ord.labels)
 
-    obj$CR[obj$ORD, obj$ORD]
+    obj$cr[obj$ord, obj$ord]
 }
