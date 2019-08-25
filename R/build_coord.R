@@ -5,8 +5,7 @@
 #' @param dist.method a character string for the distance metric used. One of pearson, euclidean, manhattan, cosine or pearson2. Default: 'pearson'
 #' @param ... other arguments passed to umap
 #' @return coordinates embedding matrix
-#' @seealso 
-#'  \code{\link[umap]{umap.defaults}},\code{\link[umap]{c("umap", "umap")}}
+#' @seealso umap, umap.defaults
 #' @rdname build_umap
 #' @export 
 #' @importFrom umap umap.defaults umap
@@ -25,8 +24,7 @@ build_umap = function(mat, dist.method = 'pearson', ...) {
 #' @param mat input matrix (each row is a variable / a gene and each column is an observation / a cell. 
 #' @param ... other arguments passed to Rtsne
 #' @return coordinates embedding matrix 
-#' @seealso 
-#'  \code{\link[Rtsne]{Rtsne}}
+#' @seealso Rtsne
 #' @rdname build_tsne
 #' @export 
 #' @importFrom Rtsne Rtsne
