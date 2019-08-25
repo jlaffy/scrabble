@@ -1,13 +1,13 @@
 Package: scrabble
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Perform Exploratory Computational Analyses on Pre-Processed Single-Cell RNA-Sequencing Data
+Version: 1.0.0
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Julie",
+           family = "Laffy",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "julie.laffy@weizmann.ac.il",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: Perform exploratory computational analyses on pre-processed single-cell RNA-sequencing data, in line with the logic and methods in our 2019 publication on Glioblastoma (Neftel*, Laffy* et al., Cell, 2019).
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
