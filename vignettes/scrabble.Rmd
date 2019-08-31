@@ -1,0 +1,70 @@
+---
+title: "scrabble"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{scrabble}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(scrabble)
+library(magrittr)
+```
+
+### Get the data
+```{r}
+m = useData()
+# Genes by Cells
+dim(m)
+# TPM, uncentered
+range(m)
+```
+
+### Prepare the data
+```{r}
+m = scrabble::logTPM(m, dividebyten = TRUE) # the default
+range(m)
+
+m = scrabble::rowCenter(m)
+# now row-centered
+scrabble::range_rowMeans(m)
+```
+
+## Cluster the Cells
+### Generate an ordered correlation matrix with `creorder()`
+```{r}
+cormat = scrabble::creorder(m)
+dim(cormat)
+range(cormat)
+
+# Options to specify how correlations are computed
+args(creorder)
+```
+
+### Plot correlation matrix with `corPlot()`
+```{r}
+args(scrabble::corPlot)
+corPlot(cormat, caption = 'Tutorial', lim.find = TRUE)
+```
+
+### Retrieve clusters
+```{r}
+args(clusters)
+clusters = scrabble::clusters(cormat)
+```
+
+### Run Differential Expression Analysis with `DEA()`
+```{r}
+args(scrabble::DEA)
+```
+
+
+
