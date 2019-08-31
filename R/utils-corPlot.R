@@ -35,7 +35,7 @@
 }
 
 
-gmap <- function(dat,
+.gmap <- function(dat,
                 x,
                 y,
                 fill = 1,
@@ -180,7 +180,7 @@ gmap <- function(dat,
     G
 }
 
-mapAssign <- function(dat,
+.mapAssign <- function(dat,
                       x,
                       y,
                       x.name = NULL,
@@ -234,7 +234,7 @@ mapAssign <- function(dat,
 }
 
 
-map1bar <- function(dat,
+.map1bar <- function(dat,
                     x,
                     y,
                     fill = 1,
