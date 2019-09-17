@@ -23,9 +23,10 @@ reorder = function(mat = NULL,
                    cor.method = 'pearson',
                    compute.dist = T,
                    dist.method = 'euclidean',
-                   ord.labels = T,
-                   row = T,
-                   col = T) {
+                   both = T, 
+                   row = both,
+                   col = both,
+                   ord.labels = T) {
 
     cr = FALSE
 
