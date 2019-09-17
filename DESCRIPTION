@@ -1,6 +1,6 @@
 Package: scrabble
 Title: Perform Exploratory Computational Analyses on Pre-Processed Single-Cell RNA-Sequencing Data
-Version: 1.0.0.9000
+Version: 1.0.0
 Authors@R: 
     person(given = "Julie",
            family = "Laffy",
@@ -21,7 +21,8 @@ Imports:
     igraph,
     FNN,
     mixtools,
-    NMFN
+    NMFN,
+    ggplot2
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
