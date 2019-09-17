@@ -43,7 +43,7 @@
 
     # Center?
     if (center) {
-        s.mat = scrabble::rowCenter(s.mat)
+        s.mat = scrabble::colCenter(s.mat)
     }
 
     return(s.mat)
@@ -58,7 +58,7 @@
 #' @param bins a named character vector with as names the rownames and as values the ID of each bin. You can provide the bins directly (e.g. with scrabble::bin()) rather than these being generated from <binmat>. Default: NULL
 #' @param controls. A character vector if <groups> is a character vector a list of character vectors of the same length as <groups>. Each character vector is a control signature whose genes should have expression levels similar to those in the corresponding real signature, but be otherwise biologically meaningless. You can provide the control signatures directly (e.g. with scrabble::binmatch()) rather than these being generated from <binmatch> / <bins>. Default: NULL
 #' @param bin.control boolean value. If your controls can be generated straight from <mat> (i.e. if mat is not row-centered and you do not provide <binmatch>, <bins>, or <controls>), then you can just call score(mat, groups, bin.control = TRUE). Default: F
-#' @param center boolean value. Should the resulting score matrix be row-centered? Default: F
+#' @param center boolean value. Should the resulting score matrix be column-centered? This option should be considered if binned controls are not used. Default: F
 #' @param nbin numeric value specifying the number of bins. Not relevant if <bins> or <controls> are provided on input. Default is 30, but please be aware that we chose 30 bins for ~ 8500 genes and if your # of genes is very different you should consider changing this. Default: 30
 #' @param n numeric value for the number of control genes to be sampled per gene in a signature. Not relevant if <controls> is provided on input. Default: 100
 #' @param replace boolean value. Allow bin sampling to be done with replacement. Default: F
