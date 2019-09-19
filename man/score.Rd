@@ -18,7 +18,7 @@ score(mat, groups, binmat = NULL, bins = NULL, controls = NULL,
 
 \item{bin.control}{boolean value. If your controls can be generated straight from <mat> (i.e. if mat is not row-centered and you do not provide <binmatch>, <bins>, or <controls>), then you can just call score(mat, groups, bin.control = TRUE). Default: F}
 
-\item{center}{boolean value. Should the resulting score matrix be row-centered? Default: F}
+\item{center}{boolean value. Should the resulting score matrix be column-centered? This option should be considered if binned controls are not used. Default: F}
 
 \item{nbin}{numeric value specifying the number of bins. Not relevant if <bins> or <controls> are provided on input. Default is 30, but please be aware that we chose 30 bins for ~ 8500 genes and if your # of genes is very different you should consider changing this. Default: 30}
 

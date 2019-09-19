@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>t-Distributed Stochastic Neighbour Embedding (Barnes-Hut implementation) — build_tsne • scrabble</title>
+<title>FUNCTION_TITLE — corPlot • scrabble</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="t-Distributed Stochastic Neighbour Embedding (Barnes-Hut implementation) — build_tsne" />
-<meta property="og:description" content="Computes a low dimensional embedding of high-dimensional data and returns the embedding coordinates matrix. Wrapper function for Rtsne::Rtsne()." />
+<meta property="og:title" content="FUNCTION_TITLE — corPlot" />
+<meta property="og:description" content="FUNCTION_DESCRIPTION" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,44 +103,85 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>t-Distributed Stochastic Neighbour Embedding (Barnes-Hut implementation)</h1>
+    <h1>FUNCTION_TITLE</h1>
     
-    <div class="hidden name"><code>build_tsne.Rd</code></div>
+    <div class="hidden name"><code>corPlot.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Computes a low dimensional embedding of high-dimensional data and returns the embedding coordinates matrix. Wrapper function for Rtsne::Rtsne().</p>
+    <p>FUNCTION_DESCRIPTION</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_tsne</span>(<span class='no'>mat</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>corPlot</span>(<span class='no'>cormat</span>, <span class='kw'>lim.find</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>0.2</span>, <span class='fl'>0.2</span>),
+  <span class='kw'>x.name</span> <span class='kw'>=</span> <span class='st'>"Cells"</span>, <span class='kw'>y.name</span> <span class='kw'>=</span> <span class='st'>"Cells"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='no'>heatCols</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mat</th>
-      <td><p>input matrix (each row is a variable / a gene and each column is an observation / a cell.</p></td>
+      <th>cormat</th>
+      <td><p>PARAM_DESCRIPTION</p></td>
+    </tr>
+    <tr>
+      <th>lim.find</th>
+      <td><p>PARAM_DESCRIPTION, Default: T</p></td>
+    </tr>
+    <tr>
+      <th>limits</th>
+      <td><p>PARAM_DESCRIPTION, Default: c(-0.2, 0.2)</p></td>
+    </tr>
+    <tr>
+      <th>x.name</th>
+      <td><p>PARAM_DESCRIPTION, Default: 'Cells'</p></td>
+    </tr>
+    <tr>
+      <th>y.name</th>
+      <td><p>PARAM_DESCRIPTION, Default: 'Cells'</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>PARAM_DESCRIPTION, Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>subtitle</th>
+      <td><p>PARAM_DESCRIPTION, Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>PARAM_DESCRIPTION, Default: heatCols</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed to Rtsne</p></td>
+      <td><p>PARAM_DESCRIPTION</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>coordinates embedding matrix</p>
+    <p>OUTPUT_DESCRIPTION</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>DETAILS</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Rtsne</p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/reshape2/man/melt.html'>melt</a></code></p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()){
+ <span class='co'>#EXAMPLE1</span>
+ }
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

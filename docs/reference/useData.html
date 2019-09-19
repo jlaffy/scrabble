@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>t-Distributed Stochastic Neighbour Embedding (Barnes-Hut implementation) — build_tsne • scrabble</title>
+<title>Load Example Data — useData • scrabble</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="t-Distributed Stochastic Neighbour Embedding (Barnes-Hut implementation) — build_tsne" />
-<meta property="og:description" content="Computes a low dimensional embedding of high-dimensional data and returns the embedding coordinates matrix. Wrapper function for Rtsne::Rtsne()." />
+<meta property="og:title" content="Load Example Data — useData" />
+<meta property="og:description" content="Load example dataset of human single-cell RNA seq data. Cells and genes are columns and rows, respectively, and all passed QC. Matrix is row-centered." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,44 +103,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>t-Distributed Stochastic Neighbour Embedding (Barnes-Hut implementation)</h1>
+    <h1>Load Example Data</h1>
     
-    <div class="hidden name"><code>build_tsne.Rd</code></div>
+    <div class="hidden name"><code>useData.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Computes a low dimensional embedding of high-dimensional data and returns the embedding coordinates matrix. Wrapper function for Rtsne::Rtsne().</p>
+    <p>Load example dataset of human single-cell RNA seq data. Cells and genes are columns and rows, respectively, and all passed QC. Matrix is row-centered.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_tsne</span>(<span class='no'>mat</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>useData</span>(<span class='kw'>rowcenter</span> <span class='kw'>=</span> <span class='no'>F</span>)</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>mat</th>
-      <td><p>input matrix (each row is a variable / a gene and each column is an observation / a cell.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>other arguments passed to Rtsne</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>coordinates embedding matrix</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Rtsne</p></div>
+    <p>centered expression matrix of genes X cells</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#see-also">See also</a></li>
     </ul>
 
   </div>

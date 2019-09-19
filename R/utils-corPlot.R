@@ -62,12 +62,12 @@
                 legend.rel = 0.6,
                 legend.colour = 'black',
                 ticks.linewidth = 0.5,
-                breaks = waiver(),
-                labels = waiver(),
-                x.breaks = waiver(),
-                y.breaks = waiver(),
-                x.labels = waiver(),
-                y.labels = waiver(),
+                breaks = ggplot2::waiver(),
+                labels = ggplot2::waiver(),
+                x.breaks = ggplot2::waiver(),
+                y.breaks = ggplot2::waiver(),
+                x.labels = ggplot2::waiver(),
+                y.labels = ggplot2::waiver(),
                 num = F,
                 y.num = T, 
                 x.num = T,
@@ -83,23 +83,23 @@
     xname = rlang::quo_name(x)
     yname = rlang::quo_name(y)
 
-    if (class(breaks) != 'waiver') {
+    if (class(breaks) != 'ggplot2::waiver') {
         x.breaks = breaks
         y.breaks = breaks
     }
 
-    if (class(labels) != 'waiver') {
+    if (class(labels) != 'ggplot2::waiver') {
         x.labels = labels
         y.labels = labels
     }
 
-    if (x.num | num | class(dat %>% pull(!!x)) == 'numeric') {
+    if (x.num | num | class(dat %>% dplyr::pull(!!x)) == 'numeric') {
         dat = dat %>% dplyr::mutate(!!xname := as.numeric(!!x))
         x.scale.FUN = ggplot2::scale_x_continuous
     } else {
         x.scale.FUN = ggplot2::scale_x_discrete
     }
-    if (y.num | num | class(dat %>% pull(!!y)) == 'numeric') {
+    if (y.num | num | class(dat %>% dplyr::pull(!!y)) == 'numeric') {
         dat = dat %>% dplyr::mutate(!!yname := as.numeric(!!y))
         y.scale.FUN = ggplot2::scale_y_continuous
     } else {
@@ -190,9 +190,9 @@
                       title = NULL,
                       col = 'darkred',
                       aspect.ratio = 1,
-                      breaks = waiver(),
-                      x.breaks = waiver(),
-                      y.breaks = waiver(),
+                      breaks = ggplot2::waiver(),
+                      x.breaks = ggplot2::waiver(),
+                      y.breaks = ggplot2::waiver(),
                       num = F,
                       y.num = T, 
                       x.num = T,
@@ -203,7 +203,7 @@
     xname = rlang::quo_name(x)
     yname = rlang::quo_name(y)
 
-    if (class(breaks) != 'waiver') {
+    if (class(breaks) != 'ggplot2::waiver') {
         x.breaks = breaks
         y.breaks = breaks
     }
@@ -261,9 +261,9 @@
                     legend.rel = 0.6,
                     legend.colour = 'black',
                     ticks.linewidth = 0.5,
-                    breaks = waiver(),
-                    x.breaks = waiver(),
-                    y.breaks = waiver(),
+                    breaks = ggplot2::waiver(),
+                    x.breaks = ggplot2::waiver(),
+                    y.breaks = ggplot2::waiver(),
                     num = F,
                     y.num = T, 
                     x.num = T,
@@ -279,7 +279,7 @@
     xname = rlang::quo_name(x)
     yname = rlang::quo_name(y)
 
-    if (class(breaks) != 'waiver') {
+    if (class(breaks) != 'ggplot2::waiver') {
         x.breaks = breaks
         y.breaks = breaks
     }

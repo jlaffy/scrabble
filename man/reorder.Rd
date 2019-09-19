@@ -6,7 +6,8 @@
 \usage{
 reorder(mat = NULL, sim.mat = NULL, corr = TRUE,
   hc.method = "average", cor.method = "pearson", compute.dist = T,
-  dist.method = "euclidean", ord.labels = T, row = T, col = T)
+  dist.method = "euclidean", both = T, row = both, col = both,
+  ord.labels = T)
 }
 \arguments{
 \item{mat}{matrix. Default: NULL}
@@ -19,13 +20,13 @@ reorder(mat = NULL, sim.mat = NULL, corr = TRUE,
 
 \item{dist.method}{a character string specifying the distance metric to be used for hierarchical clustering. Default: ''euclidean'}
 
-\item{ord.labels}{if FALSE, will return ordered indices rather than character vector. Default: T}
+\item{both}{a boolean value indicating whether both rows and columns should be reordered. Default: F}
 
 \item{row}{a boolean value indicating whether rows should be reordered. Default: F}
 
 \item{col}{a boolean value indicating whether columns should be reordered. Default: T}
 
-\item{both}{a boolean value indicating whether both rows and columns should be reordered. Default: F}
+\item{ord.labels}{if FALSE, will return ordered indices rather than character vector. Default: T}
 }
 \value{
 the matrix, with rows and/or columns reordered.
