@@ -136,7 +136,7 @@
     legend.breaks = legend$breaks
     legend.labels = legend$labels
     
-    geomtile = geom_tile(col = tile.col, size = tile.size)
+    geomtile = ggplot2::geom_tile(col = tile.col, size = tile.size)
     if (any(sapply(list(tile.size, tile.col), is.null))) {
         geomtile = ggplot2::geom_tile()
     }
@@ -318,7 +318,7 @@
     legend.breaks = legend$breaks
     legend.labels = legend$labels
     
-    geomtile = geom_tile(col = tile.col, size = tile.size)
+    geomtile = ggplot2::geom_tile(col = tile.col, size = tile.size)
     if (any(sapply(list(tile.size, tile.col), is.null))) {
         geomtile = ggplot2::geom_tile()
     }
