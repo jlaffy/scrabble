@@ -141,7 +141,7 @@
         geomtile = ggplot2::geom_tile()
     }
 
-    G <- ggplot2::ggplot(dat, aes(x = !!x, y = !!y, fill = !!fill, group = 1)) +
+    G <- ggplot2::ggplot(dat, ggplot2::aes(x = !!x, y = !!y, fill = !!fill, group = 1)) +
         geomtile +
         ggplot2::scale_fill_gradientn(colors = cols,
                                       limits = limits,
@@ -150,7 +150,7 @@
                                       breaks = legend.breaks,
                                       labels = legend.breaks,
                                       name = legend.title,
-                                      guide = guide_colorbar(frame.colour = 'black')) +
+                                      guide = ggplot2::guide_colorbar(frame.colour = 'black')) +
         ggplot2::labs(x = x.name,
                       y = y.name,
                       title = title,
@@ -167,7 +167,7 @@
                                                            colour = legend.colour,
                                                            hjust = 0.5),
                        legend.title = ggplot2::element_text(size = ggplot2::rel(legend.title.rel)),
-                       legend.margin = margin(t = -0.5, unit='cm'),
+                       legend.margin = ggplot2::margin(t = -0.5, unit='cm'),
                        legend.key.height = grid::unit(legend.height, "cm"),
                        legend.key.width = grid::unit(legend.width, "cm")) +
         eval(x.scale) +
@@ -216,7 +216,7 @@
         y.scale = quote(ggplot2::scale_y_continuous(expand = expand, breaks = breaks))
     }
 
-    ggplot2::ggplot(dat, aes(x = !!x, y = !!y, group = 1)) +
+    ggplot2::ggplot(dat, ggplot2::aes(x = !!x, y = !!y, group = 1)) +
         ggplot2::geom_tile(fill = col) + 
         ggplot2::theme_bw() +
         ggplot2::theme(aspect.ratio = aspect.ratio) +
@@ -323,7 +323,7 @@
         geomtile = ggplot2::geom_tile()
     }
 
-    G <- ggplot2::ggplot(dat, aes(x = !!x, y = !!y, fill = !!fill, group = 1)) +
+    G <- ggplot2::ggplot(dat, ggplot2::aes(x = !!x, y = !!y, fill = !!fill, group = 1)) +
         geomtile +
         ggplot2::scale_fill_gradientn(colors = cols,
                                       limits = limits,

@@ -6,6 +6,9 @@
 \usage{
 useData(rowcenter = F)
 }
+\arguments{
+\item{rowcenter}{center the expression matrix row-wise. Default: F}
+}
 \value{
 centered expression matrix of genes X cells
 }
