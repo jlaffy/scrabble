@@ -21,7 +21,7 @@ library(magrittr)
 
 ### Get the data
 ```{r}
-m = useData()
+m = scrabble::useData()
 # Genes by Cells
 dim(m)
 # TPM, uncentered
@@ -65,6 +65,3 @@ clusters = scrabble::clusters(cormat)
 ```{r}
 args(scrabble::DEA)
 ```
-
-
-
