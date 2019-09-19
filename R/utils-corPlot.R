@@ -54,7 +54,7 @@
                 ratio = NULL,
                 tile.size = 0.1,
                 tile.col = NULL,
-                cols = NULL,
+                cols = heatCols,
                 col = NULL,
                 legend.position = 'right',
                 legend.height = 0.2,
@@ -117,10 +117,6 @@
     if (!is.null(col)) {
         cols = col
         legend.position = 'none'
-    }
-
-    if (is.null(cols)) {
-        cols = readRDS('~/rds/hotmap.rds')
     }
 
     if (lim.find) {
