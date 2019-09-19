@@ -1,6 +1,6 @@
 Package: scrabble
 Title: Perform Exploratory Computational Analyses on Pre-Processed Single-Cell RNA-Sequencing Data
-Version: 1.0.0
+Version: 0.5.0
 Authors@R: 
     person(given = "Julie",
            family = "Laffy",
