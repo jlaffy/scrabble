@@ -34,7 +34,7 @@ rowCenter = function(m, method = 'mean', centerBy = NULL) {
     else if (method == 'median') center = apply(m, 1, stats::median)
     else if (method == 'mean') center = T
     else stop('method not recognised')
-    t(scale(t(m), center = T, scale = F))
+    t(scale(t(m), center = center, scale = F))
 }
 
 
