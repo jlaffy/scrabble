@@ -2,16 +2,23 @@
 
 .extractClusters = function(hc = NULL,
                      	    k = NULL,
+<<<<<<< HEAD
                             h = NULL, min.cluster.size = 0, max.cluster.size = 1) {
 
     if (is.null(h) & is.null(k)) h = hc$height # all heights
     Clusters = stats::cutree(tree = hc, h = h, k = k)
     colnames(Clusters) <- paste0(round(as.numeric(colnames(Clusters)), 4), "_") # preparing clusterNames
     clusterNames = names(unlist(apply(Clusters, 2, function(col) 1:length(table(col))))) # new clusterNames
+=======
+                            h = NULL) {
+
+    Clusters = stats::cutree(tree = hc, h = h, k = k)
+>>>>>>> eb3a8b0f0e5b7bc27e4172f73597e34dcf4a6b43
     labels = rownames(Clusters)
     Clusters = as.list(as.data.frame(Clusters))
     Clusters = sapply(Clusters, function(ID) split(labels, ID), simplify =F)
     Clusters = unlist(Clusters, recursive = F, use.names = F)
+<<<<<<< HEAD
     Clusters = stats::setNames(Clusters, clusterNames)
     ncells = length(unique(unlist(Clusters)))
     if (min.cluster.size >= 0 & min.cluster.size <= 1) {
@@ -23,6 +30,9 @@
     lens = lengths(Clusters)
     Clusters = Clusters[lens >= min.cluster.size & lens <= max.cluster.size]
     Clusters
+=======
+    stats::setNames(Clusters, 1:length(Clusters))
+>>>>>>> eb3a8b0f0e5b7bc27e4172f73597e34dcf4a6b43
 }
 
 #' @title hCluster
@@ -53,11 +63,15 @@ hCluster =  function(m = NULL,
                      cor.method = 'pearson',
                      compute.dist = T,
                      dist.method = 'euclidean',
+<<<<<<< HEAD
                      ord.labels = T,
   		     h = NULL,
 		     k = NULL,
 		     min.cluster.size = 5,
 		     max.cluster.size = 0.8) {
+=======
+                     ord.labels = T) {
+>>>>>>> eb3a8b0f0e5b7bc27e4172f73597e34dcf4a6b43
 
   # CORRELATION MATRIX
   # run?
@@ -107,11 +121,15 @@ hCluster =  function(m = NULL,
     }
 
     if (start_computation == 3) {
+<<<<<<< HEAD
 	clusters = .extractClusters(hc = hc,
 				    h = h,
 				    k = k,
 				    min.cluster.size = min.cluster.size,
 				    max.cluster.size = max.cluster.size)
+=======
+	clusters = .extractClusters(hc = hc, h = h, k = k)
+>>>>>>> eb3a8b0f0e5b7bc27e4172f73597e34dcf4a6b43
         start_computation = start_computation + 1
     }
 
