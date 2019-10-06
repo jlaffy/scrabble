@@ -18,8 +18,9 @@
 #' @rdname clusta
 #' @export 
 #' @importFrom stats cor hclust dist as.dist
-clusta <- function(mat = NULL,
+clusta <- function(m = NULL,
                    cr = FALSE,
+		   sim = FALSE,
                    hc = FALSE,
                    ord = FALSE,
                    hc.method = 'average', 

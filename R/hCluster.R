@@ -2,14 +2,27 @@
 
 .extractClusters = function(hc = NULL,
                      	    k = NULL,
-                            h = NULL) {
+                            h = NULL, min.cluster.size = 0, max.cluster.size = 1) {
 
+    if (is.null(h) & is.null(k)) h = hc$height # all heights
     Clusters = stats::cutree(tree = hc, h = h, k = k)
+    colnames(Clusters) <- paste0(round(as.numeric(colnames(Clusters)), 4), "_") # preparing clusterNames
+    clusterNames = names(unlist(apply(Clusters, 2, function(col) 1:length(table(col))))) # new clusterNames
     labels = rownames(Clusters)
     Clusters = as.list(as.data.frame(Clusters))
     Clusters = sapply(Clusters, function(ID) split(labels, ID), simplify =F)
     Clusters = unlist(Clusters, recursive = F, use.names = F)
-    stats::setNames(Clusters, 1:length(Clusters))
+    Clusters = stats::setNames(Clusters, clusterNames)
+    ncells = length(unique(unlist(Clusters)))
+    if (min.cluster.size >= 0 & min.cluster.size <= 1) {
+	min.cluster.size = min.cluster.size * ncells
+    }
+    if (max.cluster.size >= 0 & max.cluster.size <= 1) {
+	max.cluster.size = max.cluster.size * ncells
+    }
+    lens = lengths(Clusters)
+    Clusters = Clusters[lens >= min.cluster.size & lens <= max.cluster.size]
+    Clusters
 }
 
 #' @title hCluster
@@ -40,7 +53,11 @@ hCluster =  function(m = NULL,
                      cor.method = 'pearson',
                      compute.dist = T,
                      dist.method = 'euclidean',
-                     ord.labels = T) {
+                     ord.labels = T,
+  		     h = NULL,
+		     k = NULL,
+		     min.cluster.size = 5,
+		     max.cluster.size = 0.8) {
 
   # CORRELATION MATRIX
   # run?
@@ -90,7 +107,11 @@ hCluster =  function(m = NULL,
     }
 
     if (start_computation == 3) {
-	clusters = .extractClusters(hc = hc, h = h, k = k)
+	clusters = .extractClusters(hc = hc,
+				    h = h,
+				    k = k,
+				    min.cluster.size = min.cluster.size,
+				    max.cluster.size = max.cluster.size)
         start_computation = start_computation + 1
     }
 
