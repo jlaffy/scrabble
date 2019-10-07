@@ -1,5 +1,5 @@
 
-#' @title uniquely
+#' @title keepOneGeneInstance
 #' @description unique instances of names (Genes) across a list of named numeric vectors
 #' @param L List of named numeric vectors (e.g. Gene names and FC values for different clusters)
 #' @param Names return just names (Genes), Default: F
@@ -8,11 +8,11 @@
 #' @seealso 
 #'  \code{\link[reshape2]{melt}}
 #'  \code{\link[dplyr]{mutate}},\code{\link[dplyr]{arrange}},\code{\link[dplyr]{desc}}
-#' @rdname uniquely
+#' @rdname keepOneGeneInstance
 #' @export 
 #' @importFrom reshape2 melt
 #' @importFrom dplyr mutate arrange desc
-uniquely = function(L, Names = F, highest = T) {
+keepOneGeneInstance = function(L, Names = F, highest = T) {
 
     stopifnot(!is.null(names(L)))
 

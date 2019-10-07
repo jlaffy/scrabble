@@ -1,4 +1,3 @@
-#!/usr/bin/env Rscript
 
 #' @title DEgenes
 #' @description Differential Expression between Groups
@@ -13,7 +12,7 @@
 #' @param p.sort returning values are sorted by p-value (most significant first). Default: F
 #' @param return.full return both fold-change values (default) and p-values. Default: F
 #' @param return.p return p-values. Default: F
-#' @param fast if TRUE, computes p-values for significant fold-change values only. Default: FALSE
+#' @param returnAllGenes if TRUE, computes p-values for significant fold-change values only. Default: FALSE
 #' @return (log2) fold-change values for rows in m, sorted by FC (highest first) and including only those that are significant according to FC and p cutoffs.
 #' @details DETAILS
 #' @rdname DEgenes
@@ -25,77 +24,46 @@ DEgenes = function(m,
                    FC = 2,
                    adjust.method = 'BH',
                    p = 0.01,
-                   sort = T,
-                   p.sort = F,
-                   return.full = F,
-                   return.p = F,
-                   fast = FALSE) {
+                   sortBy = c('fc', 'p', 'none'),
+                   returnVal = c('fc', 'p', 'all'),
+                   returnAllGenes = FALSE) {
 
     # if <group> provided instead of m2
     # m is split to m[, group] and m[, setdiff(colnames(m), group)]
     stopifnot(sum(sapply(list(m2, group), is.null)) == 1)
 
-    # (1) calculate fold change values between corresponding pairs of rows from the two matrices
-    fcs = fold_changes(m = m,
-                       m2 = m2,
-                       group = group,
-                       is.log = is.log)
+    # step 1: Fold Changes
+    step1 = .DEgenes.FCstep(m = m,
+                            m2 = m2,
+                            group = group,
+                            FC = FC,
+                            is.log = is.log,
+                            returnAllGenes = returnAllGenes,
+                            returnVal = returnVal)
+    list2env(step1)
 
-    # if data in log form, convert FoldChange value to log2
-    if (is.numeric(FC) & is.log) {
-        FC = log2(FC)
+    # step 2: P-values
+    step2 = .DEgenes.Pstep(m = m,
+                           m2 = m2,
+                           group = group,
+                           adjust.method = adjust.method)
+    list2env(step2)
+
+    # step 3: Sort Genes (by FC or p-value, or neither)
+    step3 = .DEgenes.Sort(fcs = fcs, ps = ps, sortBy = sortBy)
+    list2env(step3)
+
+    if (length(genesPassingFC) == 0) {
+        return(genesPassingFC)
     }
 
-    if (is.numeric(FC) & isTRUE(fast) & !isTRUE(return.full)) {
-        genesPassingFC = which(fcs >= FC)
-        if (length(genesPassingFC) == 0) {
-            return(genesPassingFC)
-        }
-        fcs = fcs[genesPassingFC]
-        m = m[genesPassingFC, , drop = F]
-        m2 = m2[genesPassingFC, , drop = F]
-    }
+    # step 4: Find Significant Genes
+    step4 = .DEgenes.Significant(p = p, FC = FC, fcs = fcs, ps = ps)
+    list2env(step4)
 
-    # (2) calculate p-values across corresponding pairs of rows from the two matrices
-    ps = t_tests(m = m,
-                 m2 = m2,
-                 group = group,
-                 adjust.method = adjust.method)
-
-    if (sort) {
-        # sort by p values instead of by fold_changes
-        if (p.sort) {
-            Order = order(ps, decreasing = F) # sort by p values (smallest first)
-        } else {
-            Order = order(fcs, decreasing = T) # sort by fold_changes (largest first)
-        }
-        
-        fcs = fcs[Order]
-        ps = ps[Order]
-    }
-
-    # (3) get indexes of statistically significant differences
-    # as defined by the FoldChange value and the P-value
-    if (is.numeric(p) & is.numeric(FC)) {
-        ind = which(fcs >= FC & ps <= p)
-    } else if (is.numeric(p)) {
-        ind = which(ps <= p)
-    } else if (is.numeric(FC)) {
-        ind = which(fcs >= FC)
-    } else {
-        ind = stats::setNames(1:length(fcs), names(fcs))
-    }
-
-    if (return.full) {
-        return(list(fold.change = fcs, p.value = ps, DEgenes = ind))
-    }
-
-    # return p values instead of fold_changes?
-    if (return.p) {
-        result = stats::setNames(ps[ind], names(fcs)[ind]) # return p values
-    } else {
-        result = stats::setNames(fcs[ind], names(fcs)[ind]) # return fold_changes
-    }
+    # step 5: prepare output
+    step5 = .DEgenes.PrepareOutput(fcs = fcs, ps = ps, ind = ind, returnVal = returnVal)
+    list2env(result)
 
     result
 }

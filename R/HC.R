@@ -1,33 +1,4 @@
-#!/usr/bin/env Rscript
-
-.extractClusters = function(hc = NULL,
-                     	    k = NULL,
-                            h = NULL,
-                            min.cluster.size = 0,
-                            max.cluster.size = 1) {
-
-    if (is.null(h) & is.null(k)) h = hc$height # all heights
-    Clusters = stats::cutree(tree = hc, h = h, k = k)
-    colnames(Clusters) <- paste0(round(as.numeric(colnames(Clusters)), 4), "_") # preparing clusterNames
-    clusterNames = names(unlist(apply(Clusters, 2, function(col) 1:length(table(col))))) # new clusterNames
-    labels = rownames(Clusters)
-    Clusters = as.list(as.data.frame(Clusters))
-    Clusters = sapply(Clusters, function(ID) split(labels, ID), simplify =F)
-    Clusters = unlist(Clusters, recursive = F, use.names = F)
-    Clusters = stats::setNames(Clusters, clusterNames)
-    ncells = length(unique(unlist(Clusters)))
-    if (min.cluster.size >= 0 & min.cluster.size <= 1) {
-	    min.cluster.size = min.cluster.size * ncells
-    }
-    if (max.cluster.size >= 0 & max.cluster.size <= 1) {
-	    max.cluster.size = max.cluster.size * ncells
-    }
-    lens = lengths(Clusters)
-    Clusters = Clusters[lens >= min.cluster.size & lens <= max.cluster.size]
-    Clusters
-}
-
-#' @title hCluster
+#' @title HC
 #' @description Hierarchical clustering
 #' @param m matrix. Default: NULL
 #' @param cr correlation matrix. If provided, cr will not be computed with m. Default: FALSE
@@ -43,27 +14,29 @@
 #' only the correlation matrix is returned. Thus, users can provide an expression matrix and ask for the ordered columns' character vector, or provide a correlation matrix and ask for the corresponding hierarchical clustering object and so on.
 #' @seealso 
 #'  \code{\link[stats]{cor}},\code{\link[stats]{hclust}},\code{\link[stats]{dist}}
-#' @rdname hCluster
+#' @rdname HC
 #' @export 
 #' @importFrom stats cor hclust dist as.dist
-hCluster = function(m = NULL,
-                    cr = FALSE,
-                    hc = FALSE,
-                    ord = FALSE,
-		            clusters = FALSE,
-                    hc.method = 'average', 
-                    cor.method = 'pearson',
-                    compute.dist = T,
-                    dist.method = 'euclidean',
-                    ord.labels = T,
-  		            h = NULL,
-		            k = NULL,
-		            min.cluster.size = 5,
-		            max.cluster.size = 0.8) {
+HC = function(m = NULL,
+              cr = FALSE,
+              hc = FALSE,
+              ord = FALSE,
+		      clusters = FALSE,
+              return.steps = FALSE,
+              hc.method = 'average', 
+              cor.method = 'pearson',
+              compute.dist = T,
+              dist.method = 'euclidean',
+              ord.labels = T,
+  		      h = NULL,
+		      k = NULL,
+		      min.cluster.size = 5,
+		      max.cluster.size = 0.8) {
 
   # CORRELATION MATRIX
   # run?
     
+    List = c()
     objects_to_compute = list(cr, hc, ord, clusters)
     start_computation = 0
     end_computation = 4
@@ -79,10 +52,12 @@ hCluster = function(m = NULL,
     }
 
     if (start_computation == 0) {
-        cr <- stats::cor(m, method = cor.method)
+        cr = stats::cor(m, method = cor.method)
         start_computation = start_computation + 1
     }
 
+    List = c(List, list(cr = cr))
+    
     if (end_computation == 1) {
         return(cr)
     }
@@ -94,8 +69,11 @@ hCluster = function(m = NULL,
         start_computation = start_computation + 1
     }
 
+    List = c(List, list(hc = hc))
+
     if (end_computation == 2) {
-        return(hc)
+        if (return.steps) return(List)
+        else return(hc)
     }
 
     if (start_computation == 2) {
@@ -104,8 +82,11 @@ hCluster = function(m = NULL,
         start_computation = start_computation + 1
     }
 
+    List = c(List, list(ord = ord))
+
     if (end_computation == 3) {
-      return(ord)
+        if (return.steps) return(List)
+        else return(ord)
     }
 
     if (start_computation == 3) {
@@ -115,11 +96,13 @@ hCluster = function(m = NULL,
 				                    min.cluster.size = min.cluster.size,
 				                    max.cluster.size = max.cluster.size)
         start_computation = start_computation + 1
-
-    if (end_computation == 4) {
-        return(clusters)
     }
 
-    # return everything
-    list(cr = cr, hc = hc, ord = ord, clusters = clusters)
+    List = c(List, list(clusters = clusters))
+
+    if (end_computation == 4) {
+        # returns everything
+        if (return.steps) return(List)
+        return(clusters)
+    }
 }
