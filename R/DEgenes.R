@@ -40,30 +40,30 @@ DEgenes = function(m,
                             is.log = is.log,
                             returnAllGenes = returnAllGenes,
                             returnVal = returnVal)
-    list2env(step1)
+    list2env(step1, envir = environment())
 
     # step 2: P-values
     step2 = .DEgenes.Pstep(m = m,
                            m2 = m2,
                            group = group,
                            adjust.method = adjust.method)
-    list2env(step2)
+    list2env(step2, envir = environment())
 
     # step 3: Sort Genes (by FC or p-value, or neither)
     step3 = .DEgenes.Sort(fcs = fcs, ps = ps, sortBy = sortBy)
-    list2env(step3)
+    list2env(step3, envir = environment())
 
     if (length(genesPassingFC) == 0) {
         return(genesPassingFC)
     }
 
     # step 4: Find Significant Genes
-    step4 = .DEgenes.Significant(p = p, FC = FC, fcs = fcs, ps = ps)
-    list2env(step4)
+    step4 = .DEgenes.Significant(p = p, FC = FC, fcs = fcs, ps = ps, returnAllGenes = returnAllGenes)
+    list2env(step4, envir = environment())
 
     # step 5: prepare output
-    step5 = .DEgenes.PrepareOutput(fcs = fcs, ps = ps, ind = ind, returnVal = returnVal)
-    list2env(result)
+    step5 = .DEgenes.PrepareOutput(fcs = fcs, ps = ps, ind = ind, returnVal = returnVal, returnAllGenes = returnAllGenes)
+    list2env(step5, envir = environment())
 
     result
 }
