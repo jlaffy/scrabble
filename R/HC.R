@@ -22,7 +22,7 @@ HC = function(m = NULL,
               hc = FALSE,
               ord = FALSE,
 		      clusters = FALSE,
-              return.steps = FALSE,
+              returnSteps = FALSE,
               hc.method = 'average', 
               cor.method = 'pearson',
               compute.dist = T,
@@ -72,7 +72,7 @@ HC = function(m = NULL,
     List = c(List, list(hc = hc))
 
     if (end_computation == 2) {
-        if (return.steps) return(List)
+        if (returnSteps) return(List)
         else return(hc)
     }
 
@@ -85,7 +85,7 @@ HC = function(m = NULL,
     List = c(List, list(ord = ord))
 
     if (end_computation == 3) {
-        if (return.steps) return(List)
+        if (returnSteps) return(List)
         else return(ord)
     }
 
@@ -102,7 +102,7 @@ HC = function(m = NULL,
 
     if (end_computation == 4) {
         # returns everything
-        if (return.steps) return(List)
+        if (returnSteps) return(List)
         return(clusters)
     }
 }
