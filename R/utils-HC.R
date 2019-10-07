@@ -9,9 +9,9 @@
 
 .clusterNames = function(cutreeOutput) {
     # change df colnames (tree heights) to have 4 decimal places followed by "_"
-    colnames(cutreeOutput) = paste0(round(as.numeric(colnames(Clusters)), 4), "_")
+    colnames(cutreeOutput) = paste0(round(as.numeric(colnames(cutreeOutput)), 4), "_")
     # new clusterNames
-    names(unlist(apply(Clusters, 2, function(col) 1:length(table(col)))))
+    names(unlist(apply(cutreeOutput, 2, function(col) 1:length(table(col)))))
 }
 
 .extractClusters = function(hc = NULL,
