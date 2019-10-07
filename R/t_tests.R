@@ -40,6 +40,8 @@ t_tests = function(m,
     stopifnot(nrow(m) == nrow(m2))
     p = sapply(1:nrow(m), function(i) stats::t.test(m[i, ], m2[i, ])$p.value)
     p = stats::p.adjust(p, method = adjust.method)
-    setNames(p, rownames(m))
+    p = setNames(p, rownames(m))
+    p[is.nan(p)] = 1
+    p
 }
 
