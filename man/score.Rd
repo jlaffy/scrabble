@@ -14,7 +14,7 @@ score(mat, groups, binmat = NULL, bins = NULL, controls = NULL,
 
 \item{binmat}{an expression matrix of gene rows by cell columns that will be used to create the gene bins and ultimately the control signatures for correction of the cell scores. For our use cases, <mat> and <binmat> are identical except that the former is row-centered and used to generate cell scores and the latter is not row-centered and used to correct the cell scores. If NULL, and bin.control = T (and neither <bins> nor <controls> were provided), <mat> will be used. Careful that in this use case <mat> should not be row-centered for the correction to be meaningful. Default: NULL}
 
-\item{bins}{a named character vector with as names the rownames and as values the ID of each bin. You can provide the bins directly (e.g. with scrabble::bin()) rather than these being generated from <binmat>. Default: NULL}
+\item{bins}{a named character vector with as names the rownames and as values the ID of each bin. You can provide the bins directly (e.g. with bin()) rather than these being generated from <binmat>. Default: NULL}
 
 \item{bin.control}{boolean value. If your controls can be generated straight from <mat> (i.e. if mat is not row-centered and you do not provide <binmatch>, <bins>, or <controls>), then you can just call score(mat, groups, bin.control = TRUE). Default: F}
 
@@ -26,7 +26,7 @@ score(mat, groups, binmat = NULL, bins = NULL, controls = NULL,
 
 \item{replace}{boolean value. Allow bin sampling to be done with replacement. Default: F}
 
-\item{controls.}{A character vector if <groups> is a character vector a list of character vectors of the same length as <groups>. Each character vector is a control signature whose genes should have expression levels similar to those in the corresponding real signature, but be otherwise biologically meaningless. You can provide the control signatures directly (e.g. with scrabble::binmatch()) rather than these being generated from <binmatch> / <bins>. Default: NULL}
+\item{controls.}{A character vector if <groups> is a character vector a list of character vectors of the same length as <groups>. Each character vector is a control signature whose genes should have expression levels similar to those in the corresponding real signature, but be otherwise biologically meaningless. You can provide the control signatures directly (e.g. with binmatch()) rather than these being generated from <binmatch> / <bins>. Default: NULL}
 }
 \value{
 a matrix with as rows the columns of the input matrix and as columns the scores of each group provided in groups. If one group is provided, the matrix returned will have 1 column.

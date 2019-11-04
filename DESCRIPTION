@@ -1,36 +1,17 @@
-Package: scrabble
-Title: Perform Exploratory Computational Analyses on Pre-Processed Single-Cell RNA-Sequencing Data
-Version: 0.5.0
+Package: jtools
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
 Authors@R: 
     person(given = "Julie",
            family = "Laffy",
            role = c("aut", "cre"),
            email = "julie.laffy@weizmann.ac.il",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Perform exploratory computational analyses on pre-processed single-cell RNA-sequencing data, in line with the logic and methods in our 2019 publication on Glioblastoma (Neftel*, Laffy* et al., Cell, 2019).
-License: GPL-3
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends:
-    R (>= 2.10)
-Imports: 
-    dplyr,
-    stats,
-    magrittr,
-    reshape2,
-    Rtsne,
-    umap,
-    igraph,
-    FNN,
-    mixtools,
-    NMFN,
-    ggplot2,
-    rlang,
-    scales,
-    ggpubr
-Suggests: 
-    testthat (>= 2.1.0),
-    knitr,
-    rmarkdown
 RoxygenNote: 6.1.1
-VignetteBuilder: knitr
+Imports: 
+    stats,
+    zeallot

@@ -1,5 +1,5 @@
 #' @title Assign Rows and Sample 
-#' @description Assign rows to columns of a matrix with scrabble::maxcol_strict and subsequently sample from each column's group.
+#' @description Assign rows to columns of a matrix with maxcol_strict and subsequently sample from each column's group.
 #' @param mat a matrix
 #' @param size sample size
 #' @param min minimum value required for a row to be assigned to a column. Default: 1
@@ -11,7 +11,7 @@
 sample_strict <- function(mat, size, min = 1, diff = 0.5, replace = F) {
     # assigns each row to one of the column variables or to nothing
     # returns rownames by column variable in a list
-    groups = scrabble::maxcol_strict(mat = mat, min = min, diff = diff, splitByCol = TRUE)
+    groups = maxcol_strict(mat = mat, min = min, diff = diff, splitByCol = TRUE)
     group_size = min(lengths(groups))
 
     if (group_size < size) {

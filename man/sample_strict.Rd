@@ -21,5 +21,5 @@ sample_strict(mat, size, min = 1, diff = 0.5, replace = F)
 a list of sampled rows for each column, each elemnent a character vector of size <size>
 }
 \description{
-Assign rows to columns of a matrix with scrabble::maxcol_strict and subsequently sample from each column's group.
+Assign rows to columns of a matrix with maxcol_strict and subsequently sample from each column's group.
 }

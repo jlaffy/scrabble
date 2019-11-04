@@ -43,7 +43,7 @@
 
     # Center?
     if (center) {
-        s.mat = scrabble::colCenter(s.mat)
+        s.mat = colCenter(s.mat)
     }
 
     return(s.mat)
@@ -55,8 +55,8 @@
 #' @param mat an expression matrix of gene rows by cell columns.
 #' @param groups a character vector or list of character vectors. Each character vector is a group or signature to score each column against and should match subsets of rownames in <mat>.
 #' @param binmat an expression matrix of gene rows by cell columns that will be used to create the gene bins and ultimately the control signatures for correction of the cell scores. For our use cases, <mat> and <binmat> are identical except that the former is row-centered and used to generate cell scores and the latter is not row-centered and used to correct the cell scores. If NULL, and bin.control = T (and neither <bins> nor <controls> were provided), <mat> will be used. Careful that in this use case <mat> should not be row-centered for the correction to be meaningful. Default: NULL
-#' @param bins a named character vector with as names the rownames and as values the ID of each bin. You can provide the bins directly (e.g. with scrabble::bin()) rather than these being generated from <binmat>. Default: NULL
-#' @param controls. A character vector if <groups> is a character vector a list of character vectors of the same length as <groups>. Each character vector is a control signature whose genes should have expression levels similar to those in the corresponding real signature, but be otherwise biologically meaningless. You can provide the control signatures directly (e.g. with scrabble::binmatch()) rather than these being generated from <binmatch> / <bins>. Default: NULL
+#' @param bins a named character vector with as names the rownames and as values the ID of each bin. You can provide the bins directly (e.g. with bin()) rather than these being generated from <binmat>. Default: NULL
+#' @param controls. A character vector if <groups> is a character vector a list of character vectors of the same length as <groups>. Each character vector is a control signature whose genes should have expression levels similar to those in the corresponding real signature, but be otherwise biologically meaningless. You can provide the control signatures directly (e.g. with binmatch()) rather than these being generated from <binmatch> / <bins>. Default: NULL
 #' @param bin.control boolean value. If your controls can be generated straight from <mat> (i.e. if mat is not row-centered and you do not provide <binmatch>, <bins>, or <controls>), then you can just call score(mat, groups, bin.control = TRUE). Default: F
 #' @param center boolean value. Should the resulting score matrix be column-centered? This option should be considered if binned controls are not used. Default: F
 #' @param nbin numeric value specifying the number of bins. Not relevant if <bins> or <controls> are provided on input. Default is 30, but please be aware that we chose 30 bins for ~ 8500 genes and if your # of genes is very different you should consider changing this. Default: 30
@@ -77,7 +77,7 @@ score <- function(mat,
                   replace = F) {
 
     # Wrapper for .score() with option to first generate control groups
-    # Controls are generated with scrabble::binmatch()
+    # Controls are generated with binmatch()
 
     # Generate controls if bins provided
     if (!is.null(bins|binmat)) {
@@ -97,9 +97,9 @@ score <- function(mat,
         # Make bins if not provided
         if (is.null(bins)) {
             if (!is.null(binmat)) {
-                bins = scrabble::bin(mat = binmat, breaks = nbin)
+                bins = bin(mat = binmat, breaks = nbin)
             } else {
-                bins = scrabble::bin(mat = mat, breaks = nbin)
+                bins = bin(mat = mat, breaks = nbin)
             }
         }
 
@@ -107,14 +107,14 @@ score <- function(mat,
         if (.arg_is_args(arg = groups)) {
             # If <groups> is many:
             controls = sapply(groups,
-                              scrabble::binmatch,
+                              binmatch,
                               bins = bins,
                               n = n,
                               replace = replace,
                               simplify = F)
         } else {
             # If <groups> is one:
-            controls = scrabble::binmatch(Group = groups,
+            controls = binmatch(Group = groups,
                                    bins = bins,
                                    n = n,
                                    replace = replace) }
