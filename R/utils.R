@@ -1,4 +1,14 @@
 
+is.corr.matrix = function(m) {
+    m = as.matrix(m)
+    rg = range(m)
+    is.simil.matrix(m) & rg[1] >= 0 & rg[2] <= 1
+}
+
+is.simil.matrix = function(m) {
+    m = as.matrix(m)
+    matrixcalc::is.symmetric.matrix(m)
+}
 
 sort_by = function(..., which = 1, decreasing = T) {
     dots = list(...)
