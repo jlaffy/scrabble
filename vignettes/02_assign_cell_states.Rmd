@@ -1,0 +1,33 @@
+---
+title: "Score cells and assign them to states"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Programming with dplyr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+m = useData()
+binmat = useData(rowcenter = F)
+
+?score_cells
+m.scores = score_cells(m = m, groups = signatures, binmat = m)
+head(m.scores)
+
+?assign_cells
+assignments = assign_cells(m = m.scores, min = 0.5, dif = 0.3)
+table(names(assignments))
+
+```{r}
+?state_hierarchy
+stateNames = colnames(m.scores)
+hierarchy.coords = state_hierarchy(m = m.scores,
+                                   tl = colnames(m.scores)[1],
+                                   tr = colnames(m.scores)[2],
+                                   bl = colnames(m.scores)[3],
+                                   br = colnames(m.scores)[4])
+head(hierarchy.coords)
+
+?plot_hierarchy
+plot_hierarchy(emb = hierarchy.coords)
+```

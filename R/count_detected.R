@@ -13,11 +13,11 @@
 #' @seealso 
 #'  \code{\link[matrixStats]{rowCounts}}
 #'  \code{\link[stats]{setNames}}
-#' @rdname genes.detected
+#' @rdname count_detected
 #' @export 
 #' @importFrom matrixStats colCounts
 #' @importFrom stats setNames
-genes.detected = function(m) {
+count_detected = function(m) {
     m = as.matrix(m)
     res = matrixStats::colCounts(m != 0)
     stats::setNames(res, colnames(m))
