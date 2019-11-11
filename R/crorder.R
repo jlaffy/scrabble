@@ -5,13 +5,13 @@
 #' @param col logical indicating whether to reorder columns. Default: T
 #' @param row logical indicating whether to reorder rows. Default: T
 #' @return ordered correlation matrix.
-#' @rdname corder
+#' @rdname crorder
 #' @export 
-corder = function(m, col = T, row = T) {
+crorder = function(m, col = T, row = T) {
     if (is.corr.matrix(m)) {
         warning('Check that <m> is not already a correlation matrix...')
     }
-    obj = HC(m = m)
+    obj = hca(m = m)
     cr = obj$cr
     ord = obj$ord
     if (col) cr = cr[, ord]

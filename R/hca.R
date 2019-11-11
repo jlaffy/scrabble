@@ -1,4 +1,4 @@
-#' @title HC
+#' @title hca
 #' @description Hierarchical clustering
 #' @param m matrix. Default: NULL
 #' @param cr correlation matrix. If provided, cr will not be computed with m. Default: FALSE
@@ -14,24 +14,24 @@
 #' only the correlation matrix is returned. Thus, users can provide an expression matrix and ask for the ordered columns' character vector, or provide a correlation matrix and ask for the corresponding hierarchical clustering object and so on.
 #' @seealso 
 #'  \code{\link[stats]{cor}},\code{\link[stats]{hclust}},\code{\link[stats]{dist}}
-#' @rdname HC
+#' @rdname hca
 #' @export 
 #' @importFrom stats cor hclust dist as.dist
-HC = function(m = NULL,
-              cr = FALSE,
-              hc = FALSE,
-              ord = FALSE,
-		      clusters = FALSE,
-              returnSteps = FALSE,
-              hc.method = 'average', 
-              cor.method = 'pearson',
-              compute.dist = T,
-              dist.method = 'euclidean',
-              ord.labels = T,
-  		      h = NULL,
-		      k = NULL,
-		      min.cluster.size = 5,
-		      max.cluster.size = 0.8) {
+hca = function(m = NULL,
+               cr = FALSE,
+               hc = FALSE,
+               ord = FALSE,
+		       clusters = FALSE,
+               returnSteps = FALSE,
+               hc.method = 'average', 
+               cor.method = 'pearson',
+               compute.dist = T,
+               dist.method = 'euclidean',
+               ord.labels = T,
+  		       h = NULL,
+		       k = NULL,
+		       min.cluster.size = 5,
+		       max.cluster.size = 0.8) {
 
   # CORRELATION MATRIX
   # run?
