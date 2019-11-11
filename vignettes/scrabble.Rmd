@@ -1,0 +1,31 @@
+---
+title: "scrabble"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to scrabble}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+options(tibble.print_min = 4L, tibble.print_max = 4L)
+library(dplyr)
+library(ggplot2)
+set.seed(1014)
+```
+
+When working with single-cell RNA-seq gene expression data, we aim to:
+
+* Identify the transcriptionally-distinct subpopulations of cells (cell *states*)
+
+* Define the gene sets associated with these populations (*signatures*)
+
+* Analyse the
+
+
+## Noise in scRNA-seq data
+
+Single-cell expression data can be very noisy due to both biological and technical factothe sparsity of the data (many zeroes); the inherent stochasticity of biological processes
+
+
