@@ -53,6 +53,7 @@ HC = function(m = NULL,
 
     if (start_computation == 0) {
         cr = stats::cor(m, method = cor.method)
+        cr[is.na(cr)] <- 0
         start_computation = start_computation + 1
     }
 
