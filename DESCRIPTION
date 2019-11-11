@@ -27,7 +27,9 @@ Imports:
     ggplot2,
     rlang,
     scales,
-    ggpubr
+    ggpubr,
+    matrixStats,
+    matrixcalc
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
