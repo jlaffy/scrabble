@@ -1,4 +1,12 @@
 
+#' @title Ordered correlation matrix
+#' @description Computes correlation matrix and reorders its columns and rows by hierarchical clustering of the correlation matrix. 
+#' @param m a matrix
+#' @param col logical indicating whether to reorder columns. Default: T
+#' @param row logical indicating whether to reorder rows. Default: T
+#' @return ordered correlation matrix.
+#' @rdname corder
+#' @export 
 corder = function(m, col = T, row = T) {
     if (is.corr.matrix(m)) {
         warning('Check that <m> is not already a correlation matrix...')

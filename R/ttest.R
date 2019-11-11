@@ -1,5 +1,3 @@
-
-
 #' @title t-tests
 #' @description t-tests
 #' @param x matrix or character vector with matrix column names
