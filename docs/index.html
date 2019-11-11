@@ -44,10 +44,20 @@
   </a>
 </li>
 <li>
+  <a href="articles/scrabble.html">Get started</a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/jlaffy/scrabble">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -59,11 +69,56 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-Perform exploratory computational analyses on pre-processed single-cell RNA-sequencing data, in line with the logic and methods in our 2019 publication on Glioblastoma (Neftel*, Laffy* et al., Cell, 2019).
+
+<hr>
+<div id="output-github_document" class="section level2">
+<h2 class="hasAnchor">
+<a href="#output-github_document" class="anchor"></a>output: github_document</h2>
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+<p><code>{r, include = FALSE} knitr::opts_chunk$set(   collapse = TRUE,   comment = "#&gt;",   fig.path = "man/figures/README-",   out.width = "100%" )</code></p>
+</div>
+<div id="scrabble" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#scrabble" class="anchor"></a>scrabble</h1></div>
+<!-- badges: start -->
+
+<p>The goal of scrabble is to …</p>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>You can install the released version of scrabble from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"scrabble"</span>)</code></pre></div>
+<p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
+devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"jlaffy/scrabble"</span>)</code></pre></div>
+</div>
+<div id="example" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example" class="anchor"></a>Example</h2>
+<p>This is a basic example which shows you how to solve a common problem:</p>
+<p><code>{r example} library(scrabble) ## basic example code</code></p>
+<p>What is special about using <code>README.Rmd</code> instead of just <code>README.md</code>? You can include R chunks like so:</p>
+<p><code>{r cars} summary(cars)</code></p>
+<p>You’ll still need to render <code>README.Rmd</code> regularly, to keep <code>README.md</code> up-to-date.</p>
+<p>You can also embed plots, for example:</p>
+<p><code>{r pressure, echo = FALSE} plot(pressure)</code></p>
+<p>In that case, don’t forget to commit and push the resulting figure files, so they display on GitHub!</p>
+</div>
+</div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div class="license">
+    <div class="links">
+<h2>Links</h2>
+<ul class="list-unstyled">
+<li>Browse source code at <br><a href="https://github.com/jlaffy/scrabble">https://​github.com/​jlaffy/​scrabble</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/jlaffy/scrabble/issues">https://​github.com/​jlaffy/​scrabble/​issues</a>
+</li>
+</ul>
+</div>
+<div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
@@ -77,7 +132,13 @@ Perform exploratory computational analyses on pre-processed single-cell RNA-sequ
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://travis-ci.org/jlaffy/scrabble"><img src="https://travis-ci.org/jlaffy/scrabble.svg?branch=master" alt="Travis build status"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
