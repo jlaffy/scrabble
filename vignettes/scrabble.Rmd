@@ -15,17 +15,10 @@ library(ggplot2)
 set.seed(1014)
 ```
 
-When working with single-cell RNA-seq gene expression data, we aim to:
+scRNAseq data provides us with a good read out for the state of a cells. To make use of this, we:
 
-* Identify the transcriptionally-distinct subpopulations of cells (cell *states*)
+* Find important sets of genes or *signatures*
 
-* Define the gene sets associated with these populations (*signatures*)
+* Characterise the *signatures* in terms of biology
 
-* Analyse the
-
-
-## Noise in scRNA-seq data
-
-Single-cell expression data can be very noisy due to both biological and technical factothe sparsity of the data (many zeroes); the inherent stochasticity of biological processes
-
-
+* Use the signatures to find important groups of cells or cellular *states*
