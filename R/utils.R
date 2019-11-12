@@ -45,17 +45,6 @@ nrows <- function(mats) {
     sapply(mats, nrow, simplify = T)
 }
 
-
-#' @title Range of the rowMeans of a matrix
-#' @description Returns the range over the rowMeans of a matrix
-#' @param mat a matrix
-#' @return the range of the rowMeans of the matrix provided.
-#' @rdname range_rowMeans
-#' @export 
-range_rowMeans <- function(mat) {
-    range(rowMeans(mat))
-}
-
 is.corr.matrix = function(m) {
     m = as.matrix(m)
     rg = range(m)

@@ -1,4 +1,3 @@
-
 #' @title Differential Expression Analysis
 #' @description differential expression analysis 
 #' @param x matrix or character vector with matrix column names

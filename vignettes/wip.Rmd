@@ -2,9 +2,12 @@
 
 head(bt771)
 range(bt771)
+
 # also converts from sparse matrix
-m = logtpm(m)
-m = rowCenter(bt771)
+m = logtpm(m, bulk = F)
+m = rowCenter(m)
+range_rowmeans(m)
+
 args(hca)
 hca.obj = hca(m = m)
 sapply(hca.obj, class)
