@@ -4,7 +4,7 @@
 \alias{annomap}
 \title{One-bar annotation ggplot}
 \usage{
-annomap(X, title = NULL, x.title = NULL, pal = 1, angle = 0,
+annomap(X, title = NULL, x.title = NULL, pal = 1, angle = F,
   breaks = ggplot2::waiver(), x.num = T, flip = F, hide.legend = T,
   legend.pos = "top", ratio = 0.03, mar = 0.015, cols = NULL,
   cols.order = names(cols))
@@ -18,7 +18,7 @@ annomap(X, title = NULL, x.title = NULL, pal = 1, angle = 0,
 
 \item{pal}{numeric value specifying different qualitative brewer palettes. See ggplot2::scale_fill_brewer for details. Default: 1}
 
-\item{angle}{title angle. Default: 0}
+\item{angle}{logical indicating whether to angle title if flip = T. Default: T}
 
 \item{breaks}{set to NULL to remove x axis tick marks. Default: ggplot2::waiver()}
 

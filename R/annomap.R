@@ -5,7 +5,7 @@
 #' @param title annomap title. Default: NULL
 #' @param x.title x axis (observations) title (e.g. 'cells'). Default: NULL
 #' @param pal numeric value specifying different qualitative brewer palettes. See ggplot2::scale_fill_brewer for details. Default: 1
-#' @param angle title angle. Default: 0
+#' @param angle logical indicating whether to angle title if flip = T. Default: T
 #' @param breaks set to NULL to remove x axis tick marks. Default: ggplot2::waiver()
 #' @param x.num enumerate observations on x axis? Default: T
 #' @param flip observations along y axis instead of x? Default: F
@@ -27,7 +27,7 @@ annomap = function(X,
                    title = NULL,
                    x.title = NULL, 
                    pal = 1,
-                   angle = 0,
+                   angle = F,
                    breaks = ggplot2::waiver(),
                    x.num = T,
                    flip = F,
@@ -51,14 +51,22 @@ annomap = function(X,
     }
 
     # internal plotting vars
+    if (angle == F) angle = 0
     expand = c(0, 0)
     y.title.pos = 'left'
-    x.title.pos = 'bottom'
+    x.title.pos = 'top'
+    hjust = 0.5
+    vjust = 0.5 
     # adjust for flipped plot
     if (flip) {
         ratio = 1/ratio
         y.title.pos = 'right'
         x.title.pos = 'bottom'
+        if (angle == T) {
+            angle = 45
+            hjust = 0.5
+            vjust = 0.5
+        }
     }
 
     # ggplot x scale
@@ -84,8 +92,8 @@ annomap = function(X,
                                         position = y.title.pos) +
             ggplot2::theme(aspect.ratio = ratio,
                            legend.position = legend.pos,
-                           axis.title.x = ggplot2::element_text(angle = angle), 
-                           axis.title.y = ggplot2::element_text(angle = angle),
+                           axis.title.x = ggplot2::element_text(angle = angle, hjust = hjust, vjust = vjust), 
+                           axis.title.y = ggplot2::element_text(angle = angle, hjust = hjust, vjust = vjust),
                            plot.margin = ggplot2::margin(mar, mar, mar, mar, "cm")) + 
             ggplot2::scale_fill_brewer(palette = pal, type = 'qual')
 
