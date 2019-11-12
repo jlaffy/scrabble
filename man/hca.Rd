@@ -2,10 +2,10 @@
 % Please edit documentation in R/hca.R
 \name{hca}
 \alias{hca}
-\title{hca}
+\title{Hierarchical Clustering Analysis}
 \usage{
-hca(m = NULL, cr = FALSE, hc = FALSE, ord = FALSE,
-  clusters = FALSE, returnSteps = FALSE, hc.method = "average",
+hca(m = NULL, cr = FALSE, dist = FALSE, hc = FALSE, ord = FALSE,
+  clusters = FALSE, return.steps = FALSE, hc.method = "average",
   cor.method = "pearson", compute.dist = T,
   dist.method = "euclidean", ord.labels = T, h = NULL, k = NULL,
   min.cluster.size = 5, max.cluster.size = 0.8)
@@ -21,6 +21,8 @@ hca(m = NULL, cr = FALSE, hc = FALSE, ord = FALSE,
 
 \item{clusters}{list of clusters (character vectors), retrieved from hc. Default: FALSE}
 
+\item{return.steps}{logical indicating whether to return intermediary steps. Default: FALSE}
+
 \item{hc.method}{a character string indicating which agglomeration method to use. Default: 'average'}
 
 \item{cor.method}{a character string indicating which correlation coefficient is to be computed. Default: 'pearson'}
@@ -30,13 +32,15 @@ hca(m = NULL, cr = FALSE, hc = FALSE, ord = FALSE,
 \item{dist.method}{a character string specifying the distance metric to be used for hierarchical clustering. Default: ''euclidean'}
 
 \item{ord.labels}{if FALSE, will return ordered indices rather than character vector. Default: T}
+
+\item{d}{dist object. If provided, d will not be computed from cr. Default: FALSE}
 }
 \value{
-The function proceeds through the following steps: (1) compute correlation matrix, (2) compute hierarchical clustering object, (3) retrieve ordered character vector. It will start at the point for which an object is provided. i.e. if cr is provided, then step (1) is skipped. It will either return a list with all computed objects \code{list(cr = cr, hc = hc, ord = ord)} or stop at the point at which an argument is set to TRUE. i.e. if cr = T, step (3) is skipped and
-only the correlation matrix is returned. Thus, users can provide an expression matrix and ask for the ordered columns' character vector, or provide a correlation matrix and ask for the corresponding hierarchical clustering object and so on.
+object or list of objects. If the latter, a full list contains m (input matrix to be clustered), cr (correlation matrix), d (distance matrix), hc (hclust object), ord (char. vector), clusters (list of char. vectors).
 }
 \description{
-Hierarchical clustering
+Hierarchical clustering analysis. The function proceeds through the following steps: 1. Compute a correlation matrix; 2. Compute a distance matrix; 3. Compute hclust (hierarchical clustering) object; 4. Retrieve the clustered column order (note that this step is included for practical purposes but is not necessary); and finally, 5. Extract the clusters from the analysis (from the hclust object). 
+Because each of these intermediary objects are useful, the function allows you to leave at any point to return the object of interest. Do this by setting the corresponding object argument to TRUE. The function also allows you to enter at any point to skip steps that you have already computed elsewhere. To do this provide the starting object to the corresponding argument. You can also choose to return all intermediary steps by setting return.steps = T.
 }
 \seealso{
 \code{\link[stats]{cor}},\code{\link[stats]{hclust}},\code{\link[stats]{dist}}
