@@ -119,8 +119,7 @@ hca = function(m = NULL,
 
     if (end_computation == 5) {
         # returns everything
-        if (return.steps) return(List)
-        return(clusters)
+        if (!return.steps) return(clusters)
     }
 
     List

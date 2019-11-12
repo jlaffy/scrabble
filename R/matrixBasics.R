@@ -1,40 +1,31 @@
 #' @title Center a matrix column-wise 
 #' @description Center a matrix column-wise 
-#' @param m a matrix
-#' @param method a character string. one of "mean" or "median" definining how to do the centering. Default: "mean"
-#' @param centerBy a numeric vector of length equal to ncol(m) of values to be subtracted from each row.
-#' @return a matrix centered by columns such that the statistic defined in method is equal to 0 for each column.
+#' @param m a matrix or Matrix
+#' @param by either "mean", "median" or a numeric vector of length equal to the number of columns of ‘m’. Default: "mean"
+#' @return column-centered matrix
 #' @rdname colCenter
 #' @export 
-colCenter = function(m, method = 'mean', centerBy = NULL) {
-    if (!is.null(centerBy)) {
-        stopifnot(length(centerBy) == ncol(m))
-        center = centerBy
-    }
-    else if (method == 'median') center = apply(m, 2, stats::median)
-    else if (method == 'mean') center = T
-    else stop('method not recognised')
-    scale(m, center = center, scale = F)
+colCenter = function(m, by = 'mean') {
+    m = as.matrix(m)
+    if (by == 'mean')  by = T
+    else if (by == 'median') by = matrixStats::colMedians(m)
+    else stopifnot(is.numeric(by) & length(by) == ncol(m))
+    scale(m, center = by, scale = F)
 }
-
 
 #' @title Center a matrix row-wise 
 #' @description Center a matrix row-wise 
-#' @param m a matrix
-#' @param method a character string. one of "mean" or "median" definining how to do the centering. Default: "mean"
-#' @param centerBy a numeric vector of length equal to nrow(m) of values to be subtracted from each row.
-#' @return a matrix centered by rows such that the statistic defined in method is equal to 0 for each column.
+#' @param m a matrix or Matrix
+#' @param by either "mean", "median" or a numeric vector of length equal to the number of rows of ‘m’. Default: "mean"
+#' @return row-centered matrix
 #' @rdname rowCenter
 #' @export 
-rowCenter = function(m, method = 'mean', centerBy = NULL) {
-    if (!is.null(centerBy)) {
-        stopifnot(length(centerBy) == nrow(m))
-        center = centerBy
-    }
-    else if (method == 'median') center = apply(m, 1, stats::median)
-    else if (method == 'mean') center = T
-    else stop('method not recognised')
-    t(scale(t(m), center = center, scale = F))
+rowCenter = function(m, by = 'mean') {
+    m = as.matrix(m)
+    if (by == 'mean')  by = T
+    else if (by == 'median') by = matrixStats::rowMedians(m)
+    else stopifnot(is.numeric(by) & length(by) == nrow(m))
+    t(scale(t(m), center = by, scale = F))
 }
 
 
