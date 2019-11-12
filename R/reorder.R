@@ -15,7 +15,7 @@
 #' @rdname reorder
 #' @export 
 reorder = function(m, col = T, row = T) {
-    if (is.simil.matrix(m)) {
+    if (is.simil(m)) {
         return(.reorder.cormat(m, col = col, row = row))
     }
     if (col) m = m[, hca(m = m, ord = T)]

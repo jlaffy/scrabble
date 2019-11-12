@@ -4,7 +4,7 @@
 \alias{hca}
 \title{Hierarchical Clustering Analysis}
 \usage{
-hca(m = NULL, cr = FALSE, dist = FALSE, hc = FALSE, ord = FALSE,
+hca(m = NULL, cr = FALSE, d = FALSE, hc = FALSE, ord = FALSE,
   clusters = FALSE, return.steps = FALSE, hc.method = "average",
   cor.method = "pearson", compute.dist = T,
   dist.method = "euclidean", ord.labels = T, h = NULL, k = NULL,
@@ -14,6 +14,8 @@ hca(m = NULL, cr = FALSE, dist = FALSE, hc = FALSE, ord = FALSE,
 \item{m}{matrix. Default: NULL}
 
 \item{cr}{correlation matrix. If provided, cr will not be computed with m. Default: FALSE}
+
+\item{d}{dist object. If provided, d will not be computed from cr. Default: FALSE}
 
 \item{hc}{hclust object. If provided, hc will not be computed with cr. Default: FALSE}
 
@@ -32,14 +34,12 @@ hca(m = NULL, cr = FALSE, dist = FALSE, hc = FALSE, ord = FALSE,
 \item{dist.method}{a character string specifying the distance metric to be used for hierarchical clustering. Default: ''euclidean'}
 
 \item{ord.labels}{if FALSE, will return ordered indices rather than character vector. Default: T}
-
-\item{d}{dist object. If provided, d will not be computed from cr. Default: FALSE}
 }
 \value{
 object or list of objects. If the latter, a full list contains m (input matrix to be clustered), cr (correlation matrix), d (distance matrix), hc (hclust object), ord (char. vector), clusters (list of char. vectors).
 }
 \description{
-Hierarchical clustering analysis. The function proceeds through the following steps: 1. Compute a correlation matrix; 2. Compute a distance matrix; 3. Compute hclust (hierarchical clustering) object; 4. Retrieve the clustered column order (note that this step is included for practical purposes but is not necessary); and finally, 5. Extract the clusters from the analysis (from the hclust object). 
+Hierarchical clustering analysis. The function proceeds through the following steps: 1. Compute a correlation matrix; 2. Compute a distance matrix; 3. Compute hclust (hierarchical clustering) object; 4. Retrieve the clustered column order (included for practical usability purposes only); 5. Extract the clusters from the analysis (from the hclust object). 
 Because each of these intermediary objects are useful, the function allows you to leave at any point to return the object of interest. Do this by setting the corresponding object argument to TRUE. The function also allows you to enter at any point to skip steps that you have already computed elsewhere. To do this provide the starting object to the corresponding argument. You can also choose to return all intermediary steps by setting return.steps = T.
 }
 \seealso{

@@ -1,14 +1,32 @@
 
-
+# sparse matrix
 head(bt771)
-range(bt771)
 
+# in tpm form
+range(bt771)
 # also converts from sparse matrix
-m = logtpm(m, bulk = F)
-m = rowCenter(m)
+m = logtpm(bt771, bulk = F)
+range(m)
+
+m = rowcenter(m)
 range_rowmeans(m)
 
 args(hca)
-hca.obj = hca(m = m)
+hca.obj = hca(m = m, min.cluster.size = 5, max.cluster.size = 0.5)
 sapply(hca.obj, class)
 
+cor.mat = hca.obj$cr
+cor.mat = reorder(cor.mat)
+cor.plotted = cormap(cor.mat, lim.find = T)
+cor.with.dend = cormap(cor.mat, lim.find = T, dend = hca.obj$hc)
+
+clusters = hca.obj$clusters
+length(clusters)
+table(lengths(clusters))
+
+more.clusters = hca(hc = hca.obj$hc, clusters = T, min.size = 5, max.size = 0.8)
+length(clusters)
+table(lengths(clusters))
+
+?dea
+dea(m = m, )

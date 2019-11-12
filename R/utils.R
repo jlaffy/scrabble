@@ -45,13 +45,13 @@ nrows <- function(mats) {
     sapply(mats, nrow, simplify = T)
 }
 
-is.corr.matrix = function(m) {
+is.cor = function(m) {
     m = as.matrix(m)
     rg = range(m)
-    is.simil.matrix(m) & rg[1] >= 0 & rg[2] <= 1
+    is.simil(m) & rg[1] >= -1 & rg[2] <= 1
 }
 
-is.simil.matrix = function(m) {
+is.simil = function(m) {
     m = as.matrix(m)
     matrixcalc::is.symmetric.matrix(m)
 }

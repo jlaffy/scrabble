@@ -8,7 +8,7 @@
 #' @rdname crorder
 #' @export 
 crorder = function(m, col = T, row = T) {
-    if (is.corr.matrix(m)) {
+    if (is.cor(m)) {
         warning('Check that <m> is not already a correlation matrix...')
     }
     obj = hca(m = m)

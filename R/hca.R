@@ -42,7 +42,7 @@ hca = function(m = NULL,
     List = c()
     objects_to_compute = list(cr, d, hc, ord, clusters)
     start_computation = 0
-    end_computation = 5
+    end_computation = 6
     custom_start = sapply(objects_to_compute, function(obj) !is.logical(obj))
     custom_end = sapply(objects_to_compute, isTRUE)
 
@@ -118,8 +118,8 @@ hca = function(m = NULL,
     List = c(List, list(clusters = clusters))
 
     if (end_computation == 5) {
-        # returns everything
-        if (!return.steps) return(clusters)
+        if (return.steps) return(List)
+        else return(clusters)
     }
 
     List
