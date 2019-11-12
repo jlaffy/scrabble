@@ -1,39 +1,17 @@
-
-.is_grob <- function(x) {
-    'grob' %in% class(x)
-} 
-
-.which_to_grob <- function(x) {
-    sapply(x, function(i) !is_grob(i))
-}
-
-.add_rows <- function(Grob, n) {
-    if (n < 1) {return(Grob)}
-    for (i in 1:n) {
-        Grob <- gtable::gtable_add_rows(Grob, unit(0, "null"))
-    }
-
-    Grob
-}
-
-
-.add_cols <- function(Grob, n) {
-    if (n < 1) {return(Grob)}
-    for (i in 1:n) {
-        Grob <- gtable::gtable_add_cols(Grob, unit(0, "null"))
-    }
-    Grob
-}
-
-
-.equalize_grob_dim <- function(grobs, FUN.count = ncol, FUN.add = .add_cols) {
-    Dims <- sapply(grobs, FUN.count) %>% unlist(use.names = F)
-    dimmax <- max(Dims)
-    dimdifs <- dimmax - Dims
-    Map(FUN.add, Grob = grobs, n = dimdifs)
-}
-
-
+#' @title Combine ggplot grobs or plots
+#' @description combine ggplot grobs or plots
+#' @param ... plots/grobs to combine. A mix of the two is fine.
+#' @param by axis to combine plots by. Default: 'x'
+#' @param size which plot's dimensions to prioritise. One of 'first' or 'last'. Default: 'last'
+#' @param draw logical to return plot instead of grob. Default: T
+#' @return ggplot plot or grob object, with all objects in ... combined.
+#' @seealso 
+#'  \code{\link[ggplot2]{ggplotGrob}}
+#'  \code{\link[grid]{grid.draw}}
+#' @rdname grombine
+#' @export 
+#' @importFrom ggplot2 ggplotGrob
+#' @importFrom grid grid.draw
 grombine <- function(..., by = 'x', size = 'last', draw = T) {
     if (by %in% c('y', 'column')) {
         FUN.count = nrow

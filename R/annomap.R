@@ -1,4 +1,28 @@
 
+#' @title One-bar annotation ggplot
+#' @description one-bar annotation ggplot
+#' @param X named character vector of observations and groups (names); or a dataframe with first two columns as observations and groups.
+#' @param title annomap title. Default: NULL
+#' @param x.title x axis (observations) title (e.g. 'cells'). Default: NULL
+#' @param pal numeric value specifying different qualitative brewer palettes. See ggplot2::scale_fill_brewer for details. Default: 1
+#' @param angle title angle. Default: 0
+#' @param breaks set to NULL to remove x axis tick marks. Default: ggplot2::waiver()
+#' @param x.num enumerate observations on x axis? Default: T
+#' @param flip observations along y axis instead of x? Default: F
+#' @param hide.legend logical. Default: T
+#' @param legend.pos character string. See legend.position in ggplot2::theme for details. Default: 'top'
+#' @param ratio aspect ratio. If flip = T, ratio = 1/ratio.. Default: 0.03
+#' @param mar see plot.margin in ggplot2::themes for details. Default: 0.015
+#' @param cols custom colour palette. Option to name colours by groups to choose individual group colours. Default: NULL
+#' @param cols.order character vector with groups. Changing the order changes the assignment of colours to groups. Default: names(cols)
+#' @return ggplot
+#' @seealso 
+#'  \code{\link[ggplot2]{waiver}},\code{\link[ggplot2]{ggplot}},\code{\link[ggplot2]{scale_continuous}},\code{\link[ggplot2]{scale_x_discrete}},\code{\link[ggplot2]{geom_raster}},\code{\link[ggplot2]{ggtheme}},\code{\link[ggplot2]{theme}},\code{\link[ggplot2]{margin}},\code{\link[ggplot2]{scale_colour_brewer}},\code{\link[ggplot2]{scale_manual}},\code{\link[ggplot2]{coord_flip}}
+#'  \code{\link[ggpubr]{get_legend}},\code{\link[ggpubr]{rremove}}
+#' @rdname annomap
+#' @export 
+#' @importFrom ggplot2 waiver ggplot scale_x_continuous scale_x_discrete geom_tile theme_bw scale_y_continuous theme element_text scale_fill_brewer scale_fill_manual coord_flip
+#' @importFrom ggpubr get_legend rremove
 annomap = function(X,
                    title = NULL,
                    x.title = NULL, 

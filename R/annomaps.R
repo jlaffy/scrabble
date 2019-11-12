@@ -1,4 +1,17 @@
 
+#' @title many-bar annotations ggplot
+#' @description many-bar annotations ggplot
+#' @param ... named character vectors of observations and groups (names), or of dataframes with first two columns as observations and groups. Can be a mix of atomic vectors and dataframes. Should contain the same observations.
+#' @param titles character vector of annomap titles. Default: NULL
+#' @param flip observations along y axis instead of x? Default: F
+#' @param ratio aspect ratio. If flip = T, ratio = 1/ratio.. Default: 0.03
+#' @param mar see plot.margin in ggplot2::themes for details. Default: 0.015
+#' @return ggplot object consisting of ggplots combined.
+#' @seealso 
+#'  \code{\link[ggplot2]{waiver}},\code{\link[ggplot2]{theme}}
+#' @rdname annomaps
+#' @export 
+#' @importFrom ggplot2 waiver theme
 annomaps = function(..., titles = NULL, flip = F, ratio = 0.03, mar = 0.015) {
     .annomap = function(X, pal, title = NULL, x.breaks = NULL) {
         annomap(X, title = title, flip = flip, ratio = ratio, x.breaks = x.breaks, pal = pal)
