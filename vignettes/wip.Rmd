@@ -12,21 +12,24 @@ m = rowcenter(m)
 range_rowmeans(m)
 
 args(hca)
-hca.obj = hca(m = m, min.cluster.size = 5, max.cluster.size = 0.5)
+hca.obj = hca(m = m, min.cluster.size = 5, max.cluster.size = 0.8)
 sapply(hca.obj, class)
 
 cor.mat = hca.obj$cr
+is.cor(cor.mat)
 cor.mat = reorder(cor.mat)
+head(cor.mat)
 cor.plotted = cormap(cor.mat, lim.find = T)
 cor.with.dend = cormap(cor.mat, lim.find = T, dend = hca.obj$hc)
 
 clusters = hca.obj$clusters
 length(clusters)
-table(lengths(clusters))
+range(lengths(clusters))
 
-more.clusters = hca(hc = hca.obj$hc, clusters = T, min.size = 5, max.size = 0.8)
-length(clusters)
-table(lengths(clusters))
+less.clusters = hca(hc = hca.obj$hc, clusters = T, min.cluster.size = 5, max.cluster.size = 0.5)
+length(less.clusters)
+range(lengths(less.clusters))
+clusters = less.clusters
 
 ?dea
 dea(m = m, )
