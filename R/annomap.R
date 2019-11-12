@@ -1,14 +1,18 @@
 
 annomap = function(X,
-                   num = T,
-                   title = 'test',
-                   x.title = 'x axis', 
+                   title = NULL,
+                   x.title = NULL, 
+                   pal = 1,
+                   angle = 0,
                    breaks = ggplot2::waiver(),
-                   cols = NULL,
-                   cols.order = names(cols),
-                   legend.pos = 'none',
+                   x.num = T,
                    flip = F,
-                   ratio = 0.05) {
+                   hide.legend = T,
+                   legend.pos = 'top',
+                   ratio = 0.03,
+                   mar = 0.015,
+                   cols = NULL,
+                   cols.order = names(cols)) {
 
     # fix dataframe
     if (!is.null(dim(X))) {
@@ -24,54 +28,56 @@ annomap = function(X,
 
     # internal plotting vars
     expand = c(0, 0)
-    x.title.pos = 'top'
     y.title.pos = 'left'
-    col.groups = unique(X$fill)
-    if (is.null(cols)) cols = rainbow(n = length(col.groups))
-    if (!is.null(cols.order)) cols = cols[match(col.groups, cols.order)]
+    x.title.pos = 'bottom'
     # adjust for flipped plot
     if (flip) {
         ratio = 1/ratio
         y.title.pos = 'right'
+        x.title.pos = 'bottom'
     }
 
     # ggplot x scale
-    if (num) X = dplyr::mutate(X, x = as.numeric(x))
-    if (class(X$x) == 'numeric') scale_x_choose = ggplot2::scale_x_continuous
-    else scale_x_choose = ggplot2::scale_x_discrete
-
-#    x.scale = quote(scale_x_choose(expand = expand, breaks = breaks))
-    # ggplot y scale
-#     y.scale = quote(ggplot2::scale_y_continuous(expand = expand,
-#                                                 breaks = NULL,
-#                                                 position = y.title.pos))
-
-    invisible(X)
+    if (x.num) {
+        G = ggplot2::ggplot(X, aes(x = as.numeric(x), fill = fill, y = 1))
+        scale_x_choose = ggplot2::scale_x_continuous
+    }
+    else {
+        G = ggplot2::ggplot(X, aes(x = x, fill = fill, y = 1))
+        scale_x_choose = ggplot2::scale_x_discrete
+    }
 
     # plot
-    G = quote(ggplot2::ggplot(X, aes(x = x, fill = fill, y = 1)) +
-                ggplot2::geom_tile() + 
-                ggplot2::theme_bw() +
-                ggplot2::theme(aspect.ratio = ratio,
-                               axis.title.y = ggplot2::element_text(size = rel(1.2)),
-                               legend.position = legend.pos) +
-#                eval(x.scale) +
-#                eval(y.scale) +
-                scale_x_choose(expand = expand,
-                               breaks = NULL,
-                               position = x.title.pos) +
-                ggplot2::scale_y_continuous(expand = expand,
-                                            breaks = NULL,
-                                            position = y.title.pos) +
-                ggplot2::labs(x = x.title,
-                              y = y.title,
-                              title = title,
-                              subtitle = subtitle,
-                              caption = caption) +
-                ggplot2::scale_fill_manual(values = cols))
+    G = G + ggplot2::geom_tile() + 
+            ggplot2::theme_bw() +
+            scale_x_choose(expand = expand,
+                           position = x.title.pos,
+                           breaks = breaks,
+                           name = x.title) +
+            ggplot2::scale_y_continuous(name = title,
+                                        expand = expand,
+                                        breaks = NULL,
+                                        position = y.title.pos) +
+            ggplot2::theme(aspect.ratio = ratio,
+                           legend.position = legend.pos,
+                           axis.title.x = ggplot2::element_text(angle = angle), 
+                           axis.title.y = ggplot2::element_text(angle = angle),
+                           plot.margin = margins(mar, mar, mar, mar, "cm")) + 
+            ggplot2::scale_fill_brewer(palette = pal, type = 'qual')
 
-    if (flip) eval(G, envir = environment()) + ggplot2::coord_flip()
-    else eval(G, envir = environment())
-#    G
-#    return(invisible(X))
+    if (!is.null(cols.order)) {
+        col.groups = unique(X$fill)
+        if (is.null(cols)) cols = rainbow(n = length(col.groups))
+        cols = cols[match(col.groups, cols.order)]
+        G = G + ggplot2::scale_fill_manual(values = cols)
+    }
+
+    if (flip) G = G + ggplot2::coord_flip()
+    legend = ggpubr::get_legend(G)
+    if (hide.legend) G = G + ggpubr::rremove("legend")
+#    plot(G)
+#    invisible(list(plot = G, data = X, legend = legend))
+
+    G
 }
+
