@@ -1,0 +1,13 @@
+logtpm = function(m, bulk = F) {
+    m = as.matrix(m)
+    if (bulk) x = 1
+    else x = 10
+    log2((m/x) + 1)
+}
+
+tpm = function(m, bulk = F) {
+    m = as.matrix(m)
+    if (bulk) x = 1
+    else x = 10
+    x * (2^(m) - 1)
+}
