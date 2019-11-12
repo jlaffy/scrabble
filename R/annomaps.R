@@ -1,7 +1,7 @@
 
 #' @title many-bar annotations ggplot
 #' @description many-bar annotations ggplot
-#' @param ... named character vectors of observations and groups (names), or of dataframes with first two columns as observations and groups. Can be a mix of atomic vectors and dataframes. Should contain the same observations.
+#' @param ... named character vectors of observations and groups (names). All vectors must contain the same observations, and the ordering in the first vector provided is preserved.
 #' @param titles character vector of annomap titles. Default: NULL
 #' @param flip observations along y axis instead of x? Default: F
 #' @param ratio aspect ratio. If flip = T, ratio = 1/ratio.. Default: 0.03
@@ -17,6 +17,9 @@ annomaps = function(..., titles = NULL, flip = F, ratio = 0.03, mar = 0.015) {
         annomap(X, title = title, flip = flip, ratio = ratio, x.breaks = x.breaks, pal = pal)
     }
     dots = list(...)
+    lev = levels(dots[[1]])
+    if (is.null(lev)) lev = dots[[1]]
+    dots = sapply(dots, function(d) factor(d, levels = lev), simplify = F)
     len = length(dots) - 1
     if (is.null(titles)) titles = rep('', len+1)
     maps = sapply(1:len, function(i) .annomap(X = dots[[i]], pal = i, title = titles[[i]]), simplify = F)

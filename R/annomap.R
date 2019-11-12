@@ -86,7 +86,7 @@ annomap = function(X,
                            legend.position = legend.pos,
                            axis.title.x = ggplot2::element_text(angle = angle), 
                            axis.title.y = ggplot2::element_text(angle = angle),
-                           plot.margin = margins(mar, mar, mar, mar, "cm")) + 
+                           plot.margin = ggplot2::margin(mar, mar, mar, mar, "cm")) + 
             ggplot2::scale_fill_brewer(palette = pal, type = 'qual')
 
     if (!is.null(cols.order)) {

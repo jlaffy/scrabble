@@ -7,7 +7,7 @@
 annomaps(..., titles = NULL, flip = F, ratio = 0.03, mar = 0.015)
 }
 \arguments{
-\item{...}{named character vectors of observations and groups (names), or of dataframes with first two columns as observations and groups. Can be a mix of atomic vectors and dataframes. Should contain the same observations.}
+\item{...}{named character vectors of observations and groups (names). All vectors must contain the same observations, and the ordering in the first vector provided is preserved.}
 
 \item{titles}{character vector of annomap titles. Default: NULL}
 
