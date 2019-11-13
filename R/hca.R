@@ -2,9 +2,9 @@
 #' @description Hierarchical clustering analysis. The function proceeds through the following steps: 1. Compute a correlation matrix; 2. Compute a distance matrix; 3. Compute hclust (hierarchical clustering) object; 4. Retrieve the clustered column order (included for practical usability purposes only); 5. Extract the clusters from the analysis (from the hclust object). 
 #' Because each of these intermediary objects are useful, the function allows you to leave at any point to return the object of interest. Do this by setting the corresponding object argument to TRUE. The function also allows you to enter at any point to skip steps that you have already computed elsewhere. To do this provide the starting object to the corresponding argument. You can also choose to return all intermediary steps by setting return.steps = T.
 #' @param m matrix. Default: NULL
-#' @param cr correlation matrix. If provided, cr will not be computed with m. Default: FALSE
-#' @param d dist object. If provided, d will not be computed from cr. Default: FALSE
-#' @param hc hclust object. If provided, hc will not be computed with cr. Default: FALSE
+#' @param crm correlation matrix. If provided, cr will not be computed with m. Default: FALSE
+#' @param dst dist object. If provided, dst will not be computed from cr. Default: FALSE
+#' @param hc hclust object. If provided, hc will not be computed with dst. Default: FALSE
 #' @param ord ordered character vector, retrieved from hc. Default: FALSE
 #' @param clusters list of clusters (character vectors), retrieved from hc. Default: FALSE
 #' @param return.steps logical indicating whether to return intermediary steps. Default: FALSE
@@ -13,7 +13,7 @@
 #' @param compute.dist a boolean value indicating whether a distance measure should be computed from the correlation metric. If FALSE, distances are computed from the correlation matrix directly. Default: T
 #' @param dist.method a character string specifying the distance metric to be used for hierarchical clustering. Default: ''euclidean'
 #' @param ord.labels if FALSE, will return ordered indices rather than character vector. Default: T
-#' @return object or list of objects. If the latter, a full list contains m (input matrix to be clustered), cr (correlation matrix), d (distance matrix), hc (hclust object), ord (char. vector), clusters (list of char. vectors).
+#' @return object or list of objects. If the latter, a full list contains m (input matrix to be clustered), cr (correlation matrix), dst (distance matrix), hc (hclust object), ord (char. vector), clusters (list of char. vectors).
 #' @seealso 
 #'  \code{\link[stats]{cor}},\code{\link[stats]{hclust}},\code{\link[stats]{dist}}
 #' @rdname hca
@@ -21,7 +21,7 @@
 #' @importFrom stats cor hclust dist as.dist
 hca = function(m = NULL,
                cr = FALSE,
-               d = FALSE,
+               dst = FALSE,
                hc = FALSE,
                ord = FALSE,
 		       clusters = FALSE,
@@ -40,7 +40,7 @@ hca = function(m = NULL,
   # run?
     
     List = c()
-    objects_to_compute = list(cr, d, hc, ord, clusters)
+    objects_to_compute = list(cr, dst, hc, ord, clusters)
     start_computation = 0
     end_computation = 6
     custom_start = sapply(objects_to_compute, function(obj) !is.logical(obj))
@@ -69,12 +69,12 @@ hca = function(m = NULL,
     }
 
     if (start_computation == 1) {
-        if (compute.dist) d = stats::dist(1 - cr, method = dist.method)
-        else d = stats::as.dist(1 - cr)
+        if (compute.dist) dst = stats::dist(1 - cr, method = dist.method)
+        else dst = stats::as.dist(1 - cr)
         start_computation = start_computation + 1
     }
 
-    List = c(List, list(d = d))
+    List = c(List, list(dst = dst))
     
     if (end_computation == 2) {
         if (return.steps) return(List)
@@ -82,7 +82,7 @@ hca = function(m = NULL,
     }
 
     if (start_computation == 2) {
-        hc = stats::hclust(d, method = hc.method)
+        hc = stats::hclust(dst, method = hc.method)
         start_computation = start_computation + 1
     }
 
