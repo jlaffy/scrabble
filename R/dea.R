@@ -52,7 +52,7 @@ dea = function(x,
 #     else cutoff.p = p <= cutoff.p
 #     gene.bool = cutoff.fc & cutoff.p
 
-    if (!sort.by) {
+    if (!is.null(sort.by)) {
         if (sort.by == 'fc') {
             sort.by = 1
             decreasing = T
@@ -65,7 +65,8 @@ dea = function(x,
     }
 
 #    genes = names(fc)[gene.bool]
-    if (output == 'both') return(list(fc = fc, p = p))
+    if (is.null(output)) return(list(fc = fc, p = p))
     else if (output == 'p') return(p)
+    else if (output != 'fc') warning('<output> not recognised. Reverting to default <output> option: "fc"')
     fc
 }
