@@ -1,21 +1,42 @@
-#' @title Hierarchical Clustering Analysis
-#' @description Hierarchical clustering analysis. The function proceeds through the following steps: 1. Compute a correlation matrix; 2. Compute a distance matrix; 3. Compute hclust (hierarchical clustering) object; 4. Retrieve the clustered column order (included for practical usability purposes only); 5. Extract the clusters from the analysis (from the hclust object). 
-#' Because each of these intermediary objects are useful, the function allows you to leave at any point to return the object of interest. Do this by setting the corresponding object argument to TRUE. The function also allows you to enter at any point to skip steps that you have already computed elsewhere. To do this provide the starting object to the corresponding argument. You can also choose to return all intermediary steps by setting return.steps = T.
-#' @param m matrix. Default: NULL
-#' @param crm correlation matrix. If provided, cr will not be computed with m. Default: FALSE
-#' @param dst dist object. If provided, dst will not be computed from cr. Default: FALSE
-#' @param hc hclust object. If provided, hc will not be computed with dst. Default: FALSE
-#' @param ord ordered character vector, retrieved from hc. Default: FALSE
-#' @param clusters list of clusters (character vectors), retrieved from hc. Default: FALSE
-#' @param return.steps logical indicating whether to return intermediary steps. Default: FALSE
-#' @param hc.method a character string indicating which agglomeration method to use. Default: 'average'
-#' @param cor.method a character string indicating which correlation coefficient is to be computed. Default: 'pearson'
-#' @param compute.dist a boolean value indicating whether a distance measure should be computed from the correlation metric. If FALSE, distances are computed from the correlation matrix directly. Default: T
-#' @param dist.method a character string specifying the distance metric to be used for hierarchical clustering. Default: ''euclidean'
+#' @title Hierarchical clustering analysis
+#' @description hca takes an expression matrix as input and works through sequentially-dependent computations to produce a list with the following objects:
+#' 1. 'm': your input (expression) matrix
+#' 2. 'cr': a correlation (or similarity) matrix 
+#' 3. 'dst': a distance matrix
+#' 4. 'hc': a hierarchical clustering object
+#'      + 'ord': the clustering order (only useful as output)
+#' 5. 'clusters': a list of cluster groups 
+#' @md
+#' @param m input matrix or NULL. If NULL, an object must be provided to one of 'cr', 'dst' or 'hc'. Default: NULL
+#' @param cr,dst,hc,ord,clusters the relevant hca object (specifications below) or logical. If an object, hca() starts with this as input. Later inputs override earlier ones, except 'ord' and 'clusters' which are ignored. If TRUE, hca() stops after the object is generated. If FALSE, then the object is computed and the function proceeds, other arguments permitting. Default: FALSE 
+#' @param cr correlation or similarity matrix or logical. Default: FALSE
+#' @param dst distance matrix of class 'dist' or logical. Default: FALSE
+#' @param hc hierarchical clustering object of class 'hclust' or logical. Default: FALSE
+#' @param ord logical. An order vector will be ignored. Default: FALSE
+#' @param clusters logical. Default: FALSE
+#' @param return.steps logical indicating whether to return intermediary steps when a subset of the arguments are computed.. Default: FALSE
+#' @param hc.method linkage method. Default: 'average'
+#' @param cor.method correlation coefficient. Default: 'pearson'
+#' @param compute.dist logical. If FALSE, 'cr' is coerced to a distance matrix. If TRUE, distances are calculated from 'cr'. Default: T
+#' @param dist.method string specifying distance metric; ignored if compute.dist = F. Default: 'euclidean'
 #' @param ord.labels if FALSE, will return ordered indices rather than character vector. Default: T
+#' @param ... see arguments in hca for details. 
+#' @return object from hca call.
+#' @details It is up to you to provide the correct argument(s) to the functions:  
+#' @details hca_cr must take <m>  
+#' @details hca_dst must take <m> or <cr>  
+#' @details hca_hc can take <m>, <cr> or <dst>  
+#' @details hca_ord can take <m>, <cr>, <dst> or <hc>  
+#' @details hca_clusters can take any of the above.
+#' @details By default, hca returns a list containing all above mentioned objects.
+#' @details To break from the function after your object of interest has been computed, set the corresponding argument to TRUE. Note that when an argument is set to TRUE, only that argument is returned unless return.steps = T. 
+#' @details To begin the function from a precomputed object, pass to the appropriate argument. This allows you to skip precomputed steps and provide custom objects -- for example a similarity matrix (instead of the default correlation matrix computed in 'cr').
+#' @details The hca_[*] wrapper functions act as a shorthand to retrieve specific objects (replace [*] with object name). hca_* wrappers have simpler syntax but always return _one_ object.
 #' @return object or list of objects. If the latter, a full list contains m (input matrix to be clustered), cr (correlation matrix), dst (distance matrix), hc (hclust object), ord (char. vector), clusters (list of char. vectors).
 #' @seealso 
 #'  \code{\link[stats]{cor}},\code{\link[stats]{hclust}},\code{\link[stats]{dist}}
+#' @examples hca_clusters(hc = hc)
+#' @examples hca_ord(m = m)
 #' @rdname hca
 #' @export 
 #' @importFrom stats cor hclust dist as.dist
@@ -123,4 +144,37 @@ hca = function(m = NULL,
     }
 
     List
+}
+
+
+ 
+#' @rdname hca
+#' @export 
+hca_cr = function(m) {
+    hca(m = m, cr = T, return.steps = F)
+}
+
+#' @rdname hca
+#' @export 
+hca_dst = function(...) {
+    hca(dst = T, return.steps = F, ...)
+}
+
+#' @rdname hca
+#' @export 
+hca_hc = function(...) {
+    hca(hc = T, return.steps = F, ...)
+}
+
+
+#' @rdname hca
+#' @export 
+hca_ord = function(...) {
+    hca(ord = T, return.steps = F, ...)
+}
+
+#' @rdname hca
+#' @export 
+hca_clusters = function(...) {
+    hca(clusters = T, return.steps = F, ...)
 }
