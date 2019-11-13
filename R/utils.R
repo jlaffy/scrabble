@@ -1,3 +1,8 @@
+## approximate equality
+about_equal = function(x,y,tol=1e-10) {
+    stopifnot(is.numeric(x), is.numeric(y), length(x)==length(y), all(abs(x-y) < tol))
+}
+
 #' @title <dim> for many matrices
 #' @description Returns the result of dim for every matrix in a list
 #' @param m a list of matrices (or a single matrix)

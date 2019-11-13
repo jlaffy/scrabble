@@ -18,7 +18,7 @@
 dea = function(x,
                y,
                is.log = T,
-               fc = 2,
+               fc = 2L,
                p = 0.05,
                use.wilcox = F,
                adjust.method = unique(c('BH', stats::p.adjust.methods)),

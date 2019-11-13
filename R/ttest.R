@@ -19,11 +19,11 @@ ttest.character = function(x, y, ...) {
     ttest.matrix(x = x, y = y, ...)
 }
 
-ttest.matrix = function(x, y, adjust.method = 'BH', cutoff = NULL, ...) {
+ttest.matrix = function(x, y, adjust.method = 'BH', cutoff = NULL,var.equal = T, ...) {
     x = as.matrix(x)
     y = as.matrix(y)
     stopifnot(have_equal_rownames(x, y))
-    res = sapply(1:nrow(x), function(i) stats::t.test(x[i, ], y[i, ])$p.value)
+    res = sapply(1:nrow(x), function(i) stats::t.test(x[i, ], y[i, ], var.equal = var.equal)$p.value)
     res = stats::setNames(stats::p.adjust(res, method = adjust.method), rownames(x))
     if (!is.null(cutoff) && is_p_value(cutoff)) res = res[res <= cutoff]
     res
