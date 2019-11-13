@@ -7,7 +7,7 @@
 #' @rdname ttest
 #' @export 
 ttest = function(x, y, ...) {
-    UseMethod('ttest', y)
+    UseMethod('ttest', x)
 }
 
 ttest.NULL = function(...) {
@@ -15,7 +15,7 @@ ttest.NULL = function(...) {
 }
 
 ttest.character = function(x, y, ...) {
-    c(x, y) %<-% split_matrix(m = x, by = y)
+    c(x, y) %<-% split_matrix(m = y, by = x)
     ttest.matrix(x = x, y = y, ...)
 }
 

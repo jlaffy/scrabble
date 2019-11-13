@@ -7,7 +7,7 @@
 #' @rdname wilcoxtest
 #' @export 
 wilcoxtest = function(x, y, ...) {
-    UseMethod('wilcoxtest', y)
+    UseMethod('wilcoxtest', x)
 }
 
 wilcoxtest.NULL = function(...) {
@@ -15,7 +15,7 @@ wilcoxtest.NULL = function(...) {
 }
 
 wilcoxtest.character = function(x, y, ...) {
-    c(x, y) %<-% split_matrix(m = x, by = y)
+    c(x, y) %<-% split_matrix(m = y, by = x)
     wilcoxtest.matrix(x = x, y = y, ...)
 }
 
