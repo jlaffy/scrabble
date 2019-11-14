@@ -1,0 +1,46 @@
+
+
+m = rowcenter(logtpm(bt771))
+clusters = hca(m, clusters = T, min.cluster.size = 5, max.cluster.size = 5)
+
+###########
+How much does dea slow down with sapply iterations?
+... it actually looks much better than I expected; the increase in number of dea runs is more or less linear with increase in time, suggesting little effect of sapply on slowing down computation.
+###########
+one = clusters[[1]]
+mbm = microbenchmark::microbenchmark(
+    zero = dea(x = one, y = m, fc = 2, p = 0.05),
+    times = 30
+    )
+
+two = clusters[rep(1, 10)]
+mbm2 = microbenchmark::microbenchmark(
+    ten = sapply(two, dea, y = m, fc = 2, p = 0.05, simplify = F),
+    times = 30
+    )
+
+three = clusters[rep(1, 100)]
+mbm3 = microbenchmark::microbenchmark(
+    hundred = sapply(three, dea, y = m, fc = 2, p = 0.05, simplify = F),
+    times = 30
+    )
+
+data = do.call(rbind.data.frame, list(mbm, mbm2, mbm3))
+data = data %>% dplyr::mutate(expr = factor(as.character(expr), levels = c('zero', 'ten', 'hundred')))
+class(data) = c('microbenchmark', 'data.frame')
+ggplot2::autoplot(data)
+ggplot2::autoplot(data, log = T)
+
+
+###########
+Relative speed of foldchange, ttest, wilcoxtest
+##########
+x = clusters[[1]]
+mbm_dea_parts = microbenchmark(
+   foldchange = foldchange(x, m, cutoff = NULL, is.log = T),
+    ttest = ttest(x, m, cutoff = NULL, adjust.method = 'BH'),
+    wilcoxtest = wilcoxtest(x, m, cutoff = NULL, adjust.method = 'BH'),
+    times = 100
+)
+
+ggplot2::autoplot(mbm_dea_parts)

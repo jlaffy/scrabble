@@ -4,21 +4,20 @@
 \alias{dea}
 \title{Differential Expression Analysis}
 \usage{
-dea(x, y, is.log = T, cutoff.fc = 2, cutoff.p = 0.01,
-  use.wilcox = F, adjust.method = unique(c("BH",
-  stats::p.adjust.methods)), sort.by = c("fc", "p"), output = c("fc",
-  "p"), skip.genes = TRUE)
+dea(x, y, is.log = T, fc = 2L, p = 0.05, use.wilcox = F,
+  adjust.method = unique(c("BH", stats::p.adjust.methods)),
+  sort.by = c("fc", "p"), output = c("fc", "p"))
 }
 \arguments{
 \item{x}{matrix or character vector with matrix column names}
 
 \item{y}{matrix to compare against or matrix with x and y column names}
 
-\item{is.log}{is the expression data in log2 space? Default: T}
+\item{is.log}{logical indicating whether expression data is in log2 space. Fold change cutoff and calculation are changed accordingly. Default: T}
 
-\item{cutoff.fc}{numeric value for fold change gene cutoffs (not in log space) or NULL. Default: 2}
+\item{fc}{fold change cutoff. Set to NULL to not filter genes based on fold change. Default: 2}
 
-\item{cutoff.p}{numeric value for p-value gene cutoffs (not in log space) or NULL. Default: 0.01}
+\item{p}{p value cutoff. Set to NULL to not filter genes based on p-values. Default: 0.05}
 
 \item{use.wilcox}{logical value to use Wilcoxon-Mann-Whitney test instead of Student's t-test. Default: F}
 
@@ -27,8 +26,6 @@ dea(x, y, is.log = T, cutoff.fc = 2, cutoff.p = 0.01,
 \item{sort.by}{sort output by 'fc' or 'p' value (best first). Set sort.by = NULL to preserve original gene (row) order. Default: 'fc'}
 
 \item{output}{output 'fc' values or 'p' values (per gene). If output = NULL, a list containing both is returned. Default: 'fc'}
-
-\item{skip.genes}{set to FALSE if you require fold change and/or p-values for every gene in the matrix. Keep as TRUE if you only need those values for genes that passed cutoffs. Skipping genes is faster. Default: TRUE}
 }
 \value{
 a numeric vector of gene fold changes or p-values or a list containing both. skip.genes = F to return information on every gene in the expression matrix (regardless of it passing cutoffs).
